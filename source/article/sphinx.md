@@ -12,6 +12,10 @@ pip install sphinx_rtd_theme
 ```
 
 ```
+### Jupyter Notebook
+```
+$ pip install nbsphinx
+```
 
 ## Reference
 - [Sphinxを便利にして、みんなに使ってもらいたい](https://qiita.com/pashango2/items/d1b379b699af85b529ce)
