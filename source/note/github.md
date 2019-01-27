@@ -6,4 +6,4 @@
     - `gh-pages`
 
 ## Reference
-- [Configuring a publishing source for GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/)
+- [User, Organization, and Project Pages](https://help.github.com/articles/user-organization-and-project-pages/)

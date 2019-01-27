@@ -26,7 +26,7 @@ $ git branch --delete <branch name>
 - キャッシュ削除
     - `.gitignore` が適用されない場合に実行
 ```
-$ git rm -r --cached
+$ git rm -r --cached .
 ```
 
 ## Reference
