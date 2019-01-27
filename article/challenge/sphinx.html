@@ -79,7 +79,10 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">ドキュメント作成によく使われているカッコいいテーマを使って、Github Pages を作ってみた</a><ul>
-<li><a class="reference internal" href="#id1">ブランチ構成</a></li>
+<li><a class="reference internal" href="#id1">ブランチ構成</a><ul>
+<li><a class="reference internal" href="#css">CSS 適用</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -181,6 +184,16 @@
 </ul>
 </li>
 </ul>
+<div class="section" id="css">
+<h3>CSS 適用<a class="headerlink" href="#css" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">build/html</span></code> 下に <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code>（中身は空）を作成</li>
+<li>GitHub Pages では <a class="reference external" href="https://jekyllrb.com/">jekyll</a> が使用されているため <code class="docutils literal notranslate"><span class="pre">_&lt;hoge&gt;</span></code> が無視されてしまう<ul>
+<li>jekyll が使用されないようにする</li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 </div>
 
