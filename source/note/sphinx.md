@@ -30,6 +30,7 @@ pip install sphinx_rtd_theme
 ```
 html_theme = 'sphinx_rtd_theme'
 ```
+
 ### テーマのカスタマイズ
 - 各テーマのソースコードを見て、どのファイルに CSS が記述されているか確認
 - そのファイルを `import` して編集
@@ -77,6 +78,7 @@ html_extra_path = ['<HTML ファイルが配置されたディレクトリ>']
 ## Memo
 - `$ make html` を実行すると `build/html` 下に build される
 - CSS を修正して build する際は以下を実行
+    - `build/html` 下の `.git` が削除されるため注意
 ```
 $ make clean html
 ```
@@ -84,6 +86,8 @@ $ make clean html
 ## Problem
 - `conf.py` の `html_theme_options` が適用されない
     - 原因調査中
+- `$ make clean html` 実行時に `.git` なども一緒に削除されてしまう
+    - Makefile 修正予定
 
 ## Reference
 - [Read the Docs: Configuration](https://sphinx-rtd-theme.readthedocs.io/en/latest/configuring.html)
