@@ -15,6 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import sphinx_rtd_theme
 from recommonmark.transform import AutoStructify
 from recommonmark.parser import CommonMarkParser
 
@@ -51,7 +52,7 @@ templates_path = ['_templates']
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
-source_suffix = ['.rst', '.md']
+source_suffix = ['.md']
 
 source_parsers = {
     '.md': CommonMarkParser,
@@ -83,12 +84,19 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-# html_theme_options = {}
+html_theme_options = {
+    "navigation_depth": 5,
+    "collapse_navigation": True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': True,
+    'vcs_pageview_mode': 'edit',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -173,3 +181,7 @@ def setup(app):
         'auto_toc_tree_section': 'Contents',
     }, True)
     app.add_transform(AutoStructify)
+
+
+# customize default css
+html_style = "/css/style.css"

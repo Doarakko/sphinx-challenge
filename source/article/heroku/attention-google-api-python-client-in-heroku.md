@@ -35,7 +35,7 @@ JSON ファイルの中身をコピペします。
 
 以下 [Google Calender API のサンプルプログラム](https://developers.google.com/calendar/quickstart/python)の抜粋。
 
-```python:calendar/quickstart/quickstart.py
+```python
 store = file.Storage('token.json')
 creds = store.get()
 # 省略
@@ -49,7 +49,7 @@ service = build('calendar', 'v3', http=creds.authorize(Http()))
 ### 解決策: [ソース](https://github.com/googleapis/oauth2client) を見る
 以下 [oauth2client のソースコード](https://github.com/googleapis/oauth2client/blob/master/oauth2client/file.py)抜粋。
 
-```python:oauth2client/oauth2client/file.py
+```python: oauth2client/oauth2client/file.py
 try:
     f = open(self._filename, 'rb')
     content = f.read()

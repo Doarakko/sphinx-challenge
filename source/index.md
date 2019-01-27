@@ -6,7 +6,8 @@
 
 ## Products
 - [Kaggle Competitions Calender](products/kaggle-competitions-calender.html)
+- [Kaggle Kernel Notification](https://github.com/Doarakko/kaggle-kernel-notification)
 
-## Article
-- [Youtube のコメントを取得する in Python](article/scraping/get-youtube-comment.md)
-- [Heroku で google-api-python-client を使用する際の注意点](article/heroku/attention-google-api-python-client-in-heroku.md)
+## [Article](/article/article-index.md)
+
+## [Note](/note/note-index.md)
