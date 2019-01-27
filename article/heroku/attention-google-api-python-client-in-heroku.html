@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Heroku で google-api-python-client を使用する際の注意点 &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Heroku で google-api-python-client を使用する際の注意点</a><ul>
+<li><a class="reference internal" href="#id1">概要</a></li>
+<li><a class="reference internal" href="#id2">注意点</a></li>
+<li><a class="reference internal" href="#id3">実行環境</a></li>
+<li><a class="reference internal" href="#token-json">課題1：<code class="docutils literal notranslate"><span class="pre">token.json</span></code> をそのまま上げるわけにはいかない</a><ul>
+<li><a class="reference internal" href="#heroku-cli">解決策①：Heroku CLI で環境変数を設定</a></li>
+<li><a class="reference internal" href="#id4">解決策②：ブラウザ上から環境変数を設定</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">課題2：環境変数をどう使うか</a><ul>
+<li><a class="reference internal" href="#id6">解決策: ソース を見る</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">おわりに</a></li>
+<li><a class="reference internal" href="#id8">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Heroku で google-api-python-client を使用する際の注意点</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/article/heroku/attention-google-api-python-client-in-heroku.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="heroku-google-api-python-client">
+<h1>Heroku で google-api-python-client を使用する際の注意点<a class="headerlink" href="#heroku-google-api-python-client" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>概要<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Heroku で <code class="docutils literal notranslate"><span class="pre">google-api-python-client</span></code> ライブラリを Python で使用した際につまづいたことをまとめました。</p>
+</div>
+<div class="section" id="id2">
+<h2>注意点<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>ここで使用している <code class="docutils literal notranslate"><span class="pre">oauth2client</span></code> ライブラリは廃止予定です。</p>
+<blockquote>
+<div>Note: oauth2client is now deprecated. As such, it is unlikely that we will address or respond to your issue. We recommend you use google-auth and oauthlib.</div></blockquote>
+<p><a class="reference external" href="https://github.com/googleapis/oauth2client/blob/master/.github/ISSUE_TEMPLATE">oauth2client/.github/ISSUE_TEMPLATE.md</a></p>
+<p>気が向いたら修正します。</p>
+</div>
+<div class="section" id="id3">
+<h2>実行環境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 3.6.5<ul>
+<li>google-api-python-client==1.7.7</li>
+<li>httplib2==0.12.0</li>
+<li>oauth2client==4.1.3</li>
+</ul>
+</li>
+<li>Heroku CLI</li>
+</ul>
+</div>
+<div class="section" id="token-json">
+<h2>課題1：<code class="docutils literal notranslate"><span class="pre">token.json</span></code> をそのまま上げるわけにはいかない<a class="headerlink" href="#token-json" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="heroku-cli">
+<h3>解決策①：Heroku CLI で環境変数を設定<a class="headerlink" href="#heroku-cli" title="Permalink to this headline">¶</a></h3>
+<p>以下コマンドで、JSON ファイルを環境変数として設定できます。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ heroku config:set GOOGLE_APPLICATION_CREDENTIALS=&quot;$(&lt; token.json)&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>解決策②：ブラウザ上から環境変数を設定<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>JSON ファイルの中身をコピペします。
+<img alt="https://qiita-image-store.s3.amazonaws.com/0/245792/4b1150b1-7156-438c-5f86-127f41b11147.png" src="https://qiita-image-store.s3.amazonaws.com/0/245792/4b1150b1-7156-438c-5f86-127f41b11147.png" />スクリーンショット 2019-01-05 19.31.23.png</p>
+<p>どちらでも OK です。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>課題2：環境変数をどう使うか<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>以下 <a class="reference external" href="https://developers.google.com/calendar/quickstart/python">Google Calender API のサンプルプログラム</a>の抜粋。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">store</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">Storage</span><span class="p">(</span><span class="s1">&#39;token.json&#39;</span><span class="p">)</span>
+<span class="n">creds</span> <span class="o">=</span> <span class="n">store</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="c1"># 省略</span>
+<span class="n">service</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="s1">&#39;calendar&#39;</span><span class="p">,</span> <span class="s1">&#39;v3&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="n">creds</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">Http</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>ここではローカルにある <code class="docutils literal notranslate"><span class="pre">token.json</span></code> を読み込んで、「<strong>なにか</strong>」してから<code class="docutils literal notranslate"><span class="pre">googleapiclient.discovery.build</span></code> に渡しています。</p>
+<p>つまり、環境変数をそのまま渡してもうまくいきません。
+環境変数に対して同じ「<strong>なにか</strong>」をしてあげる必要があります。</p>
+<div class="section" id="id6">
+<h3>解決策: <a class="reference external" href="https://github.com/googleapis/oauth2client">ソース</a> を見る<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>以下 <a class="reference external" href="https://github.com/googleapis/oauth2client/blob/master/oauth2client/file.py">oauth2client のソースコード</a>抜粋。</p>
+<div class="highlight-python: oauth2client/oauth2client/file.py notranslate"><div class="highlight"><pre><span></span>try:
+    f = open(self._filename, &#39;rb&#39;)
+    content = f.read()
+    f.close()
+except IOError:
+    return credentials
+
+try:
+    credentials = client.Credentials.new_from_json(content)
+    credentials.set_store(self)
+except ValueError:
+    pass
+</pre></div>
+</div>
+<p>JSON ファイルを開いた後に、<code class="docutils literal notranslate"><span class="pre">client.Credentials.new_from_json</span></code> で処理しています。
+そこで、環境変数 <code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> に対しても同じことをしてあげれば OK です。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="kn">from</span> <span class="nn">httplib2</span> <span class="kn">import</span> <span class="n">Http</span>
+<span class="kn">from</span> <span class="nn">oauth2client</span> <span class="kn">import</span> <span class="n">client</span>
+<span class="kn">from</span> <span class="nn">googleapiclient.discovery</span> <span class="kn">import</span> <span class="n">build</span>
+
+<span class="n">CONTENTS</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;GOOGLE_APPLICATION_CREDENTIALS&#39;</span><span class="p">)</span>
+<span class="n">CREDS</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Credentials</span><span class="o">.</span><span class="n">new_from_json</span><span class="p">(</span><span class="n">CONTENTS</span><span class="p">)</span>
+<span class="n">SERVICE</span> <span class="o">=</span> <span class="n">build</span><span class="p">(</span><span class="s1">&#39;calendar&#39;</span><span class="p">,</span> <span class="s1">&#39;v3&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="n">CREDS</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">Http</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">oauth2client/oauth2client/file.py</span></code> で <code class="docutils literal notranslate"><span class="pre">with</span></code>ブロックが使われていないことに違和感を感じ、いろいろ見ていたら <code class="docutils literal notranslate"><span class="pre">oauth2client</span></code> が廃止予定であることがわかりました。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>おわりに<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>Google API のサンプルプログラムが廃止予定の <code class="docutils literal notranslate"><span class="pre">oauth2client</span></code> で書かれていますが、現在<a class="reference external" href="https://github.com/gsuitedevs/python-samples/issues/10">こちら</a>で issue が立っているので、そのうち修正されると思います。</p>
+</div>
+<div class="section" id="id8">
+<h2>参考資料<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/googleapis/oauth2client">oauth2client</a></li>
+<li><a class="reference external" href="https://simpleit.rocks/apis/google-cloud/using-google-cloud-with-heroku/">Using Google Cloud With Heroku</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

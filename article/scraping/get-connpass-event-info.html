@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Connpass のイベント情報を取得する in Python &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Connpass のイベント情報を取得する in Python</a><ul>
+<li><a class="reference internal" href="#requirement">Requirement</a></li>
+<li><a class="reference internal" href="#program">Program</a></li>
+<li><a class="reference internal" href="#hint">Hint</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Connpass のイベント情報を取得する in Python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/article/scraping/get-connpass-event-info.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="connpass-in-python">
+<h1>Connpass のイベント情報を取得する in Python<a class="headerlink" href="#connpass-in-python" title="Permalink to this headline">¶</a></h1>
+<p>Connpass API を使用してイベント情報を取得してみました。
+会員登録等はいらないです。</p>
+<p>リクエスト送るときには、1秒スリープ入れましょう。</p>
+<div class="section" id="requirement">
+<h2>Requirement<a class="headerlink" href="#requirement" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>anaconda3-5.2.0<ul>
+<li>Python 3.6.5</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="program">
+<h2>Program<a class="headerlink" href="#program" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">URL</span> <span class="o">=</span> <span class="s1">&#39;https://connpass.com/api/v1/event/&#39;</span>
+
+
+<span class="k">def</span> <span class="nf">get_event_url</span><span class="p">(</span><span class="n">keyword</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    イベント情報を取得する</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    keyword : string</span>
+<span class="sd">        検索するキーワード</span>
+<span class="sd">    count : int, default 10</span>
+<span class="sd">        取得するイベント数</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;keyword&#39;</span><span class="p">:</span> <span class="n">keyword</span><span class="p">,</span>
+        <span class="s1">&#39;count&#39;</span><span class="p">:</span> <span class="n">count</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">resources</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">resources</span><span class="p">[</span><span class="s1">&#39;events&#39;</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;event_url&#39;</span><span class="p">])</span>
+
+<span class="n">get_event_url</span><span class="p">(</span><span class="s1">&#39;python&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python get_event_url.py
+https://python-web.connpass.com/event/108056/
+https://coderdojo-tachikawa.connpass.com/event/109668/
+https://bpstudy.connpass.com/event/109688/
+https://soracom.connpass.com/event/110110/
+https://fukuokaphp.connpass.com/event/109317/
+https://connpass.com/event/109698/
+https://maid-cafe-nomad.connpass.com/event/109572/
+https://itpropartners.connpass.com/event/85381/
+https://python-algo.connpass.com/event/104394/
+https://pyhack.connpass.com/event/110414/
+https://ai-iot-bol-fukui.connpass.com/event/104798/
+https://nnc.connpass.com/event/106620/
+https://data-science-academy.connpass.com/event/107546/
+https://speee.connpass.com/event/103514/
+https://coderdojo-sapporo.connpass.com/event/110267/
+https://soil.connpass.com/event/107287/
+https://supporterz-seminar.connpass.com/event/107463/
+https://supporterz-seminar.connpass.com/event/107979/
+https://forcia.connpass.com/event/110173/
+https://forcia.connpass.com/event/110138/
+</pre></div>
+</div>
+</div>
+<div class="section" id="hint">
+<h2>Hint<a class="headerlink" href="#hint" title="Permalink to this headline">¶</a></h2>
+<p>設定できるパラメータとレスポンスは、<a class="reference external" href="https://connpass.com/about/api/">API リファレンス</a>に書いてあります。
+日本語なので気軽に見てください。
+緯度と経度が取得できるのは面白いです。</p>
+<p>定員と参加者数を使用して、参加可能なイベントのみ送ってくる Bot を作成するのも良いですね。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># イベントタイトル</span>
+<span class="n">event</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span>
+<span class="c1"># 開催場所</span>
+<span class="n">event</span><span class="p">[</span><span class="s1">&#39;address&#39;</span><span class="p">]</span>
+<span class="c1"># 緯度</span>
+<span class="n">event</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">]</span>
+<span class="c1"># 経度</span>
+<span class="n">event</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">]</span>
+<span class="c1"># 定員</span>
+<span class="n">event</span><span class="p">[</span><span class="s1">&#39;limit&#39;</span><span class="p">]</span>
+<span class="c1"># 参加者数</span>
+<span class="n">event</span><span class="p">[</span><span class="s1">&#39;accepted&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>個人的には、参加者（申込者）のアカウントが取ってこれないのが残念です。
+<a class="reference external" href="https://connpass.com/term/">Connpass の利用規約</a>ではスクレイピング自体は禁止していません。
+API を使って取得した URL を、サイトの運営を妨げない範囲でスクレイピングすればいけますね。</p>
+<blockquote>
+<div><p>第２条【サービス】</p>
+<blockquote>
+<div>当サイトの利用に際してはウェブにアクセスする必要がありますが、利用者は自らの費用と責任で必要な機器・ソフトウェア・通信手段等を用意し適切に接続・操作することとします。</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div><p>第７条【禁止事項】</p>
+<blockquote>
+<div>当サイトの運営を妨げる、または、当社の信用を毀損する行為</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://connpass.com/about/api/">connpass API リファレンス</a></li>
+<li><a class="reference external" href="https://connpass.com/term/">Connpass 利用規約</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

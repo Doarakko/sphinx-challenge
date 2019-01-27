@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>話題沸騰中の「Xonsh」というものを触ってみました &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">話題沸騰中の「Xonsh」というものを触ってみました</a><ul>
+<li><a class="reference internal" href="#id1">はじめに</a></li>
+<li><a class="reference internal" href="#id2">「Xonsh」 とは</a></li>
+<li><a class="reference internal" href="#id3">実行環境</a></li>
+<li><a class="reference internal" href="#id4">試してみる</a><ul>
+<li><a class="reference internal" href="#id5">インストール</a></li>
+<li><a class="reference internal" href="#id6">起動</a></li>
+<li><a class="reference internal" href="#id7">びっくり</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">良かったところ</a><ul>
+<li><a class="reference internal" href="#id9">インストールが簡単</a></li>
+<li><a class="reference internal" href="#id10">環境への影響</a></li>
+<li><a class="reference internal" href="#python">Python で書ける安心感</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11">悪かったところ</a><ul>
+<li><a class="reference internal" href="#id12">起動が面倒</a></li>
+<li><a class="reference internal" href="#pyenv-gcloud">pyenv, gcloud が使えない</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id13">さいごに</a></li>
+<li><a class="reference internal" href="#id14">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>話題沸騰中の「Xonsh」というものを触ってみました</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/article/challenge/xonsh.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="xonsh">
+<h1>話題沸騰中の「Xonsh」というものを触ってみました<a class="headerlink" href="#xonsh" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>この記事は「<a class="reference external" href="#">Xonsh Advent Calender 2018</a>」の11日目の記事です。</p>
+<p>「Xonsh」というものが話題沸騰中とのことなので、時代の波に乗り遅れないように触ってみました。</p>
+</div>
+<div class="section" id="id2">
+<h2>「Xonsh」 とは<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Xonsh（エックスオンシュ） とは Python 製のシェルです。</p>
+<p>Xonsh の日本人開発者の方が記事をいっぱい書いてくれています。</p>
+<p>[https://vaaaaaanquish.hatenablog.com/archive/category/xonsh:embed:cite]</p>
+<p>Xonsh のことを調べていると、大抵この方の記事に行き着きます。勘弁して欲しいです。</p>
+</div>
+<div class="section" id="id3">
+<h2>実行環境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>macOS 10.13.6</li>
+<li>anaconda3-5.2.0<ul>
+<li>Python 3.6.5</li>
+</ul>
+</li>
+<li>pip 18.1</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>試してみる<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>インストール<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install xonsh
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">pip</span></code> で入るのが驚きです。シェルと聞くと、インストールとか環境周りとか面倒くさそうなイメージがあるのですが、<code class="docutils literal notranslate"><span class="pre">pip</span></code>を見ると安心しますね 。</p>
+</div>
+<div class="section" id="id6">
+<h3>起動<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>起動する際には、以下コマンドを打つ必要があります。
+不思議な感じです。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ xonsh
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>びっくり<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>何も読まずにとりあえずうってみました。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ import pandas as pd
+$ df = pd.read_csv(&#39;../input/sales_train.csv&#39;)
+$ df.head()
+         date  date_block_num  shop_id  item_id  item_price  item_cnt_day
+0  02.01.2013               0       59    22154      999.00           1.0
+1  03.01.2013               0       25     2552      899.00           1.0
+2  05.01.2013               0       25     2552      899.00          -1.0
+3  06.01.2013               0       25     2554     1709.05           1.0
+4  15.01.2013               0       25     2555     1099.00           1.0
+</pre></div>
+</div>
+<p>本当に Python でびっくりです。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>良かったところ<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h3>インストールが簡単<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>Python を使っている人であれば、秒で入れられます。</p>
+<p><u><b>「Xonsh のインストールでつまずく人、マジで0人説」</b></u></p>
+</div>
+<div class="section" id="id10">
+<h3>環境への影響<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>Python のパッケージなので（間違ってたらごめんなさい）、他のところをいじる必要がないのは大きいです。</p>
+<p>なにかしでかしたら、<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">xonsh</span></code>で致命傷は受けないという保険があります。</p>
+</div>
+<div class="section" id="python">
+<h3>Python で書ける安心感<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>普通のシェルだと、自分でなにか作りたいと思ってもハードルが高いです。</p>
+<p>Xonsh は Python でなんでも書けます。</p>
+<p>Pyhton は最強です。つまり、<u><b>「Xonsh」は最強ということです。</b></u></p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>悪かったところ<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h3>起動が面倒<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<p>起動する際には、毎回 <code class="docutils literal notranslate"><span class="pre">Xonsh</span></code> コマンドを打たなければいいけません。</p>
+<p>回避策あったら教えてください。</p>
+</div>
+<div class="section" id="pyenv-gcloud">
+<h3>pyenv, gcloud が使えない<a class="headerlink" href="#pyenv-gcloud" title="Permalink to this headline">¶</a></h3>
+<p>普段 <code class="docutils literal notranslate"><span class="pre">gcloud</span></code>コマンドを使うために、<code class="docutils literal notranslate"><span class="pre">pyenv</span></code> で Python2 と Python3 を切り替えているのですが、ここら辺は使えないようです。</p>
+<p>「Xonsh」自体が Python3 上で動いているので、Python 2 には切り替えられないという感じでしょうか。</p>
+<p>他のシェルと違い Pyhton 上で動くとなると、ここらへんのバージョンの問題はでできますね</p>
+<p>Xonsh の問題というよりは、<code class="docutils literal notranslate"><span class="pre">gcloud</span></code> が Pyhton 3 に対応すればいいだけの話です。</p>
+</div>
+</div>
+<div class="section" id="id13">
+<h2>さいごに<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>ちょっとしたコマンドを作っていたのですが、間に合わなかったので別記事に書こうと思います。</p>
+<p>みなさんも時代の波に乗り遅れないように <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">xonsh</span></code> しましょう。</p>
+</div>
+<div class="section" id="id14">
+<h2>参考資料<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://vaaaaaanquish.hatenablog.com/entry/2017/11/30/175236">Pythonistaに贈るXonshのススメ</a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

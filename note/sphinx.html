@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Sphinx &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Sphinx</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
+<li><a class="reference internal" href="#directory-structure">Directory Structure</a></li>
+<li><a class="reference internal" href="#set-up">Set Up</a><ul>
+<li><a class="reference internal" href="#id1">テーマの設定</a></li>
+<li><a class="reference internal" href="#id2">テーマのカスタマイズ</a></li>
+<li><a class="reference internal" href="#markdown">MarkDown</a></li>
+<li><a class="reference internal" href="#jupyter-notebook">Jupyter Notebook(動作未確認)</a></li>
+<li><a class="reference internal" href="#html">HTML 形式で記述</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#memo">Memo</a></li>
+<li><a class="reference internal" href="#problem">Problem</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Sphinx</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/note/sphinx.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="sphinx">
+<h1>Sphinx<a class="headerlink" href="#sphinx" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 3.6.5</li>
+<li>pip 18.1</li>
+</ul>
+</div>
+<div class="section" id="directory-structure">
+<h2>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.
+├── Makefile
+├── README.md
+├── build
+│   ├── doctrees
+│   └── html
+├── make.bat
+└── source
+    ├── _static
+    ├── _templates
+    ├── conf.py
+    ├── html
+    └── index.md
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-up">
+<h2>Set Up<a class="headerlink" href="#set-up" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>テーマの設定<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>ライブラリのドキュメントによく使われているテーマ（<a class="reference external" href="https://lightgbm.readthedocs.io/en/latest/">LightGBM</a>, <a class="reference external" href="https://optuna.readthedocs.io/en/latest/">Optuna</a>, etc）を使用</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx_rtd_theme</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">conf.py</span></code></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">html_theme</span> <span class="o">=</span> <span class="s1">&#39;sphinx_rtd_theme&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>テーマのカスタマイズ<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>各テーマのソースコードを見て、どのファイルに CSS が記述されているか確認</li>
+<li>そのファイルを <code class="docutils literal notranslate"><span class="pre">import</span></code> して編集</li>
+<li><code class="docutils literal notranslate"><span class="pre">style.css</span></code></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@import</span> <span class="n">url</span><span class="p">(</span><span class="s2">&quot;theme.css&quot;</span><span class="p">);</span>
+ 
+<span class="o">.</span><span class="n">wy</span><span class="o">-</span><span class="n">nav</span><span class="o">-</span><span class="n">content</span> <span class="p">{</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">width</span><span class="p">:</span> <span class="n">none</span><span class="p">;</span>
+    <span class="nb">max</span><span class="o">-</span><span class="n">height</span><span class="p">:</span> <span class="n">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">h1</span><span class="p">,</span><span class="n">h2</span><span class="p">,</span><span class="n">h3</span><span class="p">,</span><span class="n">h4</span><span class="p">,</span><span class="n">h5</span><span class="p">,</span><span class="n">h6</span> <span class="p">{</span>
+    <span class="n">border</span><span class="o">-</span><span class="n">bottom</span><span class="p">:</span> <span class="mi">1</span><span class="n">px</span> <span class="n">solid</span> <span class="c1">#ccc;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">conf.py</span></code></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># customize default css</span>
+<span class="n">html_style</span> <span class="o">=</span> <span class="s2">&quot;/css/style.css&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="markdown">
+<h3>MarkDown<a class="headerlink" href="#markdown" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">conf.py</span></code></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">recommonmark.transform</span> <span class="k">import</span> <span class="n">AutoStructify</span>
+<span class="kn">from</span> <span class="nn">recommonmark.parser</span> <span class="k">import</span> <span class="n">CommonMarkParser</span>
+
+<span class="n">source_suffix</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;.md&#39;</span><span class="p">]</span>
+
+<span class="n">source_parsers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;.md&#39;</span><span class="p">:</span> <span class="n">CommonMarkParser</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="jupyter-notebook">
+<h3>Jupyter Notebook(動作未確認)<a class="headerlink" href="#jupyter-notebook" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install nbsphinx
+</pre></div>
+</div>
+</div>
+<div class="section" id="html">
+<h3>HTML 形式で記述<a class="headerlink" href="#html" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">&lt;HTML</span> <span class="pre">ファイルが配置されたディレクトリ&gt;</span></code> 下のファイル（or フォルダ）が <code class="docutils literal notranslate"><span class="pre">build/html</span></code> 下に配置される<ul>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;HTML</span> <span class="pre">ファイルが配置されたディレクトリ&gt;</span></code> は無視されるので注意</li>
+</ul>
+</li>
+<li><code class="docutils literal notranslate"><span class="pre">conf.py</span></code></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">html_extra_path</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&lt;HTML ファイルが配置されたディレクトリ&gt;&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="memo">
+<h2>Memo<a class="headerlink" href="#memo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">make</span> <span class="pre">html</span></code> を実行すると <code class="docutils literal notranslate"><span class="pre">build/html</span></code> 下に build される</li>
+<li>CSS を修正して build する際は以下を実行</li>
+<li><code class="docutils literal notranslate"><span class="pre">build/html</span></code> 下の <code class="docutils literal notranslate"><span class="pre">.git</span></code> が削除されるため注意</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make clean html
+</pre></div>
+</div>
+</div>
+<div class="section" id="problem">
+<h2>Problem<a class="headerlink" href="#problem" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">conf.py</span></code> の <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> が適用されない<ul>
+<li>原因調査中</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://sphinx-rtd-theme.readthedocs.io/en/latest/configuring.html">Read the Docs: Configuration</a></li>
+<li><a class="reference external" href="https://qiita.com/pashango2/items/d1b379b699af85b529ce">Sphinxを便利にして、みんなに使ってもらいたい</a></li>
+<li><a class="reference external" href="http://kuttsun.blogspot.com/2016/11/sphinx-sphinxrtdtheme.html">Sphinx の sphinx_rtd_theme をカスタマイズする
+</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

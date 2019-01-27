@@ -1,0 +1,410 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kaggle の Google Calender を作りました &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Kaggle の Google Calender を作りました</a><ul>
+<li><a class="reference internal" href="#id1">はじめに</a></li>
+<li><a class="reference internal" href="#id2">概要</a></li>
+<li><a class="reference internal" href="#id3">実行環境</a></li>
+<li><a class="reference internal" href="#id4">手順</a><ul>
+<li><a class="reference internal" href="#kaggle-api">1. Kaggle API でコンペの情報取得</a></li>
+<li><a class="reference internal" href="#id5">2. カレンダーに登録されているイベント名を取得</a></li>
+<li><a class="reference internal" href="#id6">3. 新規コンペをカレンダーに登録</a></li>
+<li><a class="reference internal" href="#heroku">4. Heroku にあげて定期実行</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">おわりに</a></li>
+<li><a class="reference internal" href="#id8">参考資料</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Kaggle の Google Calender を作りました</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/article/kaggle/kaggle-competitions-calender.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="kaggle-google-calender">
+<h1>Kaggle の Google Calender を作りました<a class="headerlink" href="#kaggle-google-calender" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>「<a class="reference external" href="https://qiita.com/advent-calendar/2018/kaggle">Kaggle Advent Calender 2018</a>」25 日目の記事です。</p>
+</div>
+<div class="section" id="id2">
+<h2>概要<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Kaggle API をうまく使ってコンペの Google カレンダーを作ります。</p>
+<p>Kaggle のカレンダーは、過去に<a class="reference external" href="https://www.kaggle.com/general/2756">こちら</a>の公式フォラームに投稿されていましたが、現在は機能していません。</p>
+<p>以下はプログラムの説明になります。
+カレンダーだけ見たい方は<a class="reference external" href="https://doarakko.github.io/products/kaggle-competitions-calender.html">こちら</a>からどうぞ。</p>
+</div>
+<div class="section" id="id3">
+<h2>実行環境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>anaconda3-5.2.0<ul>
+<li>Python 3.6.5<ul>
+<li>kaggle 1.5.0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Kaggle API Key<ul>
+<li>説明は省きます</li>
+<li><code class="docutils literal notranslate"><span class="pre">kaggle</span></code> コマンドが実行できるような状態にしておいてください</li>
+</ul>
+</li>
+<li>Google Calender API<ul>
+<li>v3</li>
+<li>説明は省きます</li>
+</ul>
+</li>
+<li>Heroku</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>手順<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="kaggle-api">
+<h3>1. Kaggle API でコンペの情報取得<a class="headerlink" href="#kaggle-api" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://doarakko.hatenablog.com/entry/kaggle_api_in_python">こちら</a>
+の記事を参考に Kaggle API を Python で実行します。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kaggle.api.kaggle_api_extended</span> <span class="kn">import</span> <span class="n">KaggleApi</span>
+
+<span class="k">def</span> <span class="nf">get_competitions_list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s1">&#39;featured&#39;</span><span class="p">):</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">KaggleApi</span><span class="p">()</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">api</span><span class="o">.</span><span class="n">competitions_list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>2. カレンダーに登録されているイベント名を取得<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_event_name_list</span><span class="p">():</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;Z&#39;</span>
+    <span class="n">events_result</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
+        <span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDER_ID</span><span class="p">,</span> <span class="n">timeMin</span><span class="o">=</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="n">events_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="n">events_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="n">events_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">events_name</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>3. 新規コンペをカレンダーに登録<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_events</span><span class="p">(</span><span class="n">competitions_list</span><span class="p">):</span>
+    <span class="n">event_name_list</span> <span class="o">=</span> <span class="n">get_event_name_list</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">event_name_list</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">competition_info</span> <span class="ow">in</span> <span class="n">competitions_list</span><span class="p">:</span>
+        <span class="n">competition_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">competition_info</span><span class="p">,</span> <span class="s1">&#39;title&#39;</span><span class="p">)</span>
+
+        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+        <span class="n">end_date</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">competition_info</span><span class="p">,</span> <span class="s1">&#39;deadline&#39;</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">end_date</span><span class="p">)</span>
+        <span class="n">end_date</span> <span class="o">=</span> <span class="n">end_date</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+        <span class="c1"># 新規コンペの場合</span>
+        <span class="k">if</span> <span class="n">competition_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">event_name_list</span> <span class="ow">and</span> <span class="n">now</span> <span class="o">&lt;</span> <span class="n">end_date</span><span class="p">:</span>
+            <span class="n">key_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluationMetric&#39;</span><span class="p">,</span> <span class="s1">&#39;isKernelsSubmissionsOnly&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]</span>
+            <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">competition_info</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_list</span><span class="p">:</span>
+                    <span class="n">description</span> <span class="o">+=</span> <span class="s1">&#39;{}: {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">competition_info</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
+
+            <span class="n">start_date</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">competition_info</span><span class="p">,</span> <span class="s1">&#39;enabledDate&#39;</span><span class="p">)</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">timezone</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">localize</span><span class="p">(</span><span class="n">start_date</span><span class="p">)</span>
+            <span class="n">start_date</span> <span class="o">=</span> <span class="n">start_date</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+            <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;summary&#39;</span><span class="p">:</span> <span class="n">competition_name</span><span class="p">,</span>
+                <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+                <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;dateTime&#39;</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+                    <span class="s1">&#39;timeZone&#39;</span><span class="p">:</span> <span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;dateTime&#39;</span><span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+                    <span class="s1">&#39;timeZone&#39;</span><span class="p">:</span> <span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;reminders&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;useDefault&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s1">&#39;visibility&#39;</span><span class="p">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDER_ID</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;[Create] {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">competition_name</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">key_list</span></code>に設定したものを、イベントの説明欄に入れます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">key_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">,</span> <span class="s1">&#39;evaluationMetric&#39;</span><span class="p">,</span> <span class="s1">&#39;isKernelsSubmissionsOnly&#39;</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="s1">&#39;url&#39;</span><span class="p">]</span>
+<span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">competition_info</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_list</span><span class="p">:</span>
+        <span class="n">description</span> <span class="o">+=</span> <span class="s1">&#39;{}: {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">competition_info</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>以下がイベントの登録処理です。タイムゾーンが<code class="docutils literal notranslate"><span class="pre">America/Los_Angeles</span></code>になっていますが、こちらは<code class="docutils literal notranslate"><span class="pre">dateTime</span></code>がどのタイムゾーンかを入れます。最初戸惑いました。</p>
+<p>あとは、個人のカレンダーの設定に合わせて Google 側でうまくやってくれます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;summary&#39;</span><span class="p">:</span> <span class="n">competition_name</span><span class="p">,</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span>
+    <span class="s1">&#39;start&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;dateTime&#39;</span><span class="p">:</span> <span class="n">start_date</span><span class="p">,</span>
+        <span class="s1">&#39;timeZone&#39;</span><span class="p">:</span> <span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;end&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;dateTime&#39;</span><span class="p">:</span> <span class="n">end_date</span><span class="p">,</span>
+        <span class="s1">&#39;timeZone&#39;</span><span class="p">:</span> <span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;reminders&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;useDefault&#39;</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;visibility&#39;</span><span class="p">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDER_ID</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="heroku">
+<h3>4. Heroku にあげて定期実行<a class="headerlink" href="#heroku" title="Permalink to this headline">¶</a></h3>
+<p>省略します。</p>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>おわりに<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>2019 年も楽しい Kaggle ライフが送れそうです。
+[f:id:Doarakko:20181225075647p:plain]</p>
+</div>
+<div class="section" id="id8">
+<h2>参考資料<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://doarakko.github.io/products/kaggle-competitions-calender.html">作ったカレンダー</a></li>
+<li><a class="reference external" href="https://github.com/Doarakko/kaggle-competitions-calender">作ったプログラム</a></li>
+<li><a class="reference external" href="https://doarakko.hatenablog.com/entry/kaggle_api_in_python">「Kaggle API」を Python で実行してみた</a></li>
+<li><a class="reference external" href="https://github.com/Kaggle/kaggle-api">Kaggle API</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

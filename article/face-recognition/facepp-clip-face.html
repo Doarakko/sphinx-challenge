@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>「Face++ Detect API」でローカル画像から一定条件を満たす顔を切り取る in Python &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">「Face++ Detect API」でローカル画像から一定条件を満たす顔を切り取る in Python</a><ul>
+<li><a class="reference internal" href="#id1">概要</a></li>
+<li><a class="reference internal" href="#id2">注意点</a></li>
+<li><a class="reference internal" href="#id3">1. はじめに</a></li>
+<li><a class="reference internal" href="#id4">2. 実行環境</a></li>
+<li><a class="reference internal" href="#id5">3. 必要なもの</a></li>
+<li><a class="reference internal" href="#id6">4. ディレクリ構成</a></li>
+<li><a class="reference internal" href="#id7">5. プログラム</a></li>
+<li><a class="reference internal" href="#id8">6. 実行手順</a></li>
+<li><a class="reference internal" href="#id9">7. おわりに</a></li>
+<li><a class="reference internal" href="#hints">Hints</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>「Face++ Detect API」でローカル画像から一定条件を満たす顔を切り取る in Python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/article/face-recognition/facepp-clip-face.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="face-detect-api-in-python">
+<h1>「Face++ Detect API」でローカル画像から一定条件を満たす顔を切り取る in Python<a class="headerlink" href="#face-detect-api-in-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>概要<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>「<a class="reference external" href="https://www.faceplusplus.com/face-detection/">Face++ Detect API</a>」を使用して, ローカル画像から顔を検出し, 顔の切り取りを行います.
+顔の角度・検出した顔の数・瞳孔間の距離から, 一定条件を満たす顔のみ切り取りを行うプログラムを作成しました.
+<img alt="https://qiita-image-store.s3.amazonaws.com/0/245792/b8de8352-0e4d-6e99-e606-325a105ac94e.png" src="https://qiita-image-store.s3.amazonaws.com/0/245792/b8de8352-0e4d-6e99-e606-325a105ac94e.png" />image.png</p>
+</div>
+<div class="section" id="id2">
+<h2>注意点<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>・本プログラムの使用範囲内では, API使用料は無料（2018/4/8）です. 詳しい内容については各自<a class="reference external" href="https://console.faceplusplus.com/documents/5679127">Reference</a>を確認してください.
+・<a class="reference external" href="https://www.faceplusplus.com/">Face++</a>のアカウント作成方法の説明はありません.</p>
+</div>
+<div class="section" id="id3">
+<h2>1. はじめに<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>「<a class="reference external" href="https://www.faceplusplus.com/face-detection/">Face++ Detect API</a>」を使用して, ローカル画像から顔を検出し, 顔の切り取りを行います.顔が正面を向いていて, 一定サイズ以上大きい顔画像のみを取得することを目的とにします.そのため, 以下の条件を満たす顔画像は顔の切り取りは行いません.</p>
+<p>・検出した顔の数が0または複数・顔の横揺れの角度が15°以上または-15°以下・顔の縦揺れの角度が10°以上または-10°以下・瞳孔間の距離が40ピクセル未満</p>
+<p>取得した顔の特徴量を後で使用することを想定するため, レスポンスをJSON形式で保存しました.その後, JSONファイルをロードして顔の切り取りを行います.</p>
+</div>
+<div class="section" id="id4">
+<h2>2. 実行環境<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>・mac os 10.13.3・anaconda3-5.1.0・pip 9.0.3・opencv-python 3.4.0.12・Face++ Detect API v3.0</p>
+</div>
+<div class="section" id="id5">
+<h2>3. 必要なもの<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>・Face++アカウント　- アカウント作成の際に電話番号が必要</p>
+<p>・ Face++ API Key</p>
+</div>
+<div class="section" id="id6">
+<h2>4. ディレクリ構成<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./
+├── clip_face.py
+├── data
+├── detect_image.py
+└── image
+    ├── error
+    ├── face
+    └── original
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>5. プログラム<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>detect_image.py’return_attributes’ は, ‘,’ の後にスペースを入れるとエラーになるので注意してください</p>
+<div class="highlight-python:detect_image.py notranslate"><div class="highlight"><pre><span></span>response = requests.post(
+    endpoint + &#39;/facepp/v3/detect&#39;,
+    {
+        &#39;api_key&#39;: API_KEY,
+        &#39;api_secret&#39;: API_SECRET,
+        # &#39;image_url&#39;: img_url,
+        &#39;image_base64&#39;: img_file,
+        &#39;return_landmark&#39;: 1,
+        &#39;return_attributes&#39;: &#39;headpose,eyestatus,facequality,mouthstatus,eyegaze&#39;
+    }
+)
+</pre></div>
+</div>
+<p>clip_face.py
+目的に合わせて下部分を変更・追加・削除してください</p>
+<div class="highlight-python:clip_face.py notranslate"><div class="highlight"><pre><span></span>#指定した条件を満たす顔画像か判断する関数
+def judge_noise_image(resources):
+    #検出された顔の数
+    face_num = len(resources[&#39;faces&#39;])
+    # 検出された顔の数が1以外の場合
+    if face_num != 1:
+        print(&#39;[Remove] face_num = {}&#39;.format(face_num), end=&#39; &#39;)
+        return -1
+
+    #ランドマークの数
+    landmark_num = len(resources[&#39;faces&#39;][0][&#39;landmark&#39;])
+    # 一部のランドマークが取得できなかった場合
+    if landmark_num != 83:
+        print(&#39;[Remove] landmark_num = {}&#39;.format(landmark_num), end=&#39; &#39;)
+        return -1
+
+    #顔の向きを取得
+    yaw = resources[&#39;faces&#39;][0][&#39;attributes&#39;][&#39;headpose&#39;][&#39;yaw_angle&#39;]
+    pitch = resources[&#39;faces&#39;][0][&#39;attributes&#39;][&#39;headpose&#39;][&#39;pitch_angle&#39;]
+    # roll = resources[&#39;faces&#39;][0][&#39;attributes&#39;][&#39;headpose&#39;][&#39;roll_angle&#39;]
+    # yaw角度が15°以上または-15°以下の場合
+    if yaw &gt;= 15 or yaw &lt;= -15:
+        print(&#39;[Remove] yaw = {}&#39;.format(yaw), end=&#39; &#39;)
+        return -1
+    # pitch角度が10°以上または-10°以下の場合
+    elif pitch &gt;= 10 or pitch &lt;= -10:
+        print(&#39;[Remove] pitch = {}&#39;.format(pitch), end=&#39; &#39;)
+        return -1
+
+    # 左目の瞳孔のy座標
+    left_eye_pupil_y = resources[&#39;faces&#39;][0][&#39;landmark&#39;][&#39;left_eye_pupil&#39;][&#39;y&#39;]
+    # 左目の瞳孔のx座標
+    left_eye_pupil_x = resources[&#39;faces&#39;][0][&#39;landmark&#39;][&#39;left_eye_pupil&#39;][&#39;x&#39;]
+    # 右目の瞳孔のy座標
+    right_eye_pupil_y = resources[&#39;faces&#39;][0][&#39;landmark&#39;][&#39;right_eye_pupil&#39;][&#39;y&#39;]
+    # 右目の瞳孔のy座標
+    right_eye_pupil_x = resources[&#39;faces&#39;][0][&#39;landmark&#39;][&#39;right_eye_pupil&#39;][&#39;x&#39;]
+    # 瞳孔間の距離
+    pupil_dis = math.sqrt((left_eye_pupil_y - right_eye_pupil_y) ** 2 + (left_eye_pupil_x - right_eye_pupil_x) ** 2)
+    # 瞳孔間の距離が40ピクセル未満の場合
+    if pupil_dis &lt; 40:
+        print(&#39;[Remove] pupil_dis = {}&#39;.format(pupil_dis), end=&#39; &#39;)
+        return -1
+    return 0
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>6. 実行手順<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li>pip で opencv をインストール</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install opencv-python
+</pre></div>
+</div>
+<ol class="simple">
+<li>git clone</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/Doarakko/face-recognition
+$ cd facepp-api-clip-face
+</pre></div>
+</div>
+<ol class="simple">
+<li>「API KEY」と「API SECRET」を入力
+<img alt="https://qiita-image-store.s3.amazonaws.com/0/245792/0218f4ba-b158-7f8e-3398-2b1b0d73f52b.jpeg" src="https://qiita-image-store.s3.amazonaws.com/0/245792/0218f4ba-b158-7f8e-3398-2b1b0d73f52b.jpeg" />facepp.jpg</li>
+</ol>
+<div class="highlight-python:detect_image.py notranslate"><div class="highlight"><pre><span></span>API_KEY = &#39;aaabbbccc&#39;
+API_SECRET = &#39;xxxyyyzzz&#39;
+</pre></div>
+</div>
+<ol class="simple">
+<li>顔認識する画像を ./image/original 下に置く数に制限はなく, 名前は自由です</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./image/original/
+├── person0
+│   ├── person0_0.jpg
+│   ├── person0_1.jpg
+│   ├── person0_2.jpg
+│   ├── person0_3.jpg
+│   └── person0_4.jpg
+├── person1
+│   ├── person1_0.jpg
+│   ├── person1_1.jpg
+│   ├── person1_2.jpg
+│   ├── person1_3.jpg
+│   └── person1_4.jpg
+└── person2
+    ├── person2_0.jpg
+    ├── person2_1.jpg
+    ├── person2_2.jpg
+    ├── person2_3.jpg
+    └── person2_4.jpg
+</pre></div>
+</div>
+<ol class="simple">
+<li>「<a class="reference external" href="https://www.faceplusplus.com/face-detection/">Face++ Detect API</a>」にリクエストを送り, レスポンスをJSON形式で保存します</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python detect_image.py
+</pre></div>
+</div>
+<ol class="simple">
+<li>保存したJSONファイルをロードして, 取得した数値から顔を切り取ります</li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python clip_face.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>7. おわりに<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<p>「<a class="reference external" href="https://www.faceplusplus.com/face-detection/">Face++ Detect API</a>」では大量の特徴量を取得でき, 本プログラムではその一部しか使用していません.各自<a class="reference external" href="https://console.faceplusplus.com/documents/5679127">Reference</a>を確認して, プログラムをカスタマイズしてください.</p>
+</div>
+<div class="section" id="hints">
+<h2>Hints<a class="headerlink" href="#hints" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Doarakko/face-recognition/tree/master/facepp-api-clip-face">Code</a></li>
+<li><a class="reference external" href="https://qiita.com/Doarakko/items/bf33d9eb102871224ce1">Qiita</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>「Kaggle API」を Python で実行してみた &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">「Kaggle API」を Python で実行してみた</a><ul>
+<li><a class="reference internal" href="#id1">はじめに</a></li>
+<li><a class="reference internal" href="#id2">概要</a></li>
+<li><a class="reference internal" href="#id3">実行環境</a></li>
+<li><a class="reference internal" href="#id4">準備</a><ul>
+<li><a class="reference internal" href="#kaggle">1. kaggle ライブラリをインポート</a></li>
+<li><a class="reference internal" href="#kaggleapi">2. KaggleApi クラスのインスタンスを準備</a></li>
+<li><a class="reference internal" href="#id5">3. 認証を通す</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">試してみる</a><ul>
+<li><a class="reference internal" href="#id7">各コンペの情報を取得</a></li>
+<li><a class="reference internal" href="#kernel">Kernel の情報を取得</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">メリット</a><ul>
+<li><a class="reference internal" href="#id9">1. <code class="docutils literal notranslate"><span class="pre">kaggle</span></code>コマンドでは見れない情報を取得できる</a></li>
+<li><a class="reference internal" href="#id10">2. 利用規約に違反しない</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id11">注意点</a></li>
+<li><a class="reference internal" href="#id12">おわりに</a></li>
+<li><a class="reference internal" href="#id13">参考資料</a></li>
+<li><a class="reference internal" href="#hints">Hints</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>「Kaggle API」を Python で実行してみた</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/article/kaggle/kaggle-api-in-python.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="kaggle-api-python">
+<h1>「Kaggle API」を Python で実行してみた<a class="headerlink" href="#kaggle-api-python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>「<a class="reference external" href="https://qiita.com/advent-calendar/2018/kaggle-part2">kaggle その2 Advent Calendar 2018</a>」2 日目の記事です。</p>
+</div>
+<div class="section" id="id2">
+<h2>概要<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Kaggle API を Python 上で実行します（<u><b><code class="docutils literal notranslate"><span class="pre">kaggle</span></code> コマンドを実行するわけではありません</b></u>）。</p>
+</div>
+<div class="section" id="id3">
+<h2>実行環境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>anaconda3-5.2.0<ul>
+<li>Python 3.6.5<ul>
+<li>kaggle 1.5.0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Kaggle API Key<ul>
+<li>説明は省きます</li>
+<li><code class="docutils literal notranslate"><span class="pre">kaggle</span></code> コマンドが実行できるような状態にしておいてください</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>準備<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="kaggle">
+<h3>1. kaggle ライブラリをインポート<a class="headerlink" href="#kaggle" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">kaggle</span></code>コマンドは Python で作られているので、Github を見ながらうまいことインポートします。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kaggle.api.kaggle_api_extended</span> <span class="kn">import</span> <span class="n">KaggleApi</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kaggleapi">
+<h3>2. KaggleApi クラスのインスタンスを準備<a class="headerlink" href="#kaggleapi" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">KaggleApi</span></code> クラスにいろいろな処理が書かれているので、こちらのインスタンスを準備して、<code class="docutils literal notranslate"><span class="pre">api</span></code>経由でいろいろな関数を実行して行きます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># KaggleApi のインスタンスを用意</span>
+<span class="n">api</span> <span class="o">=</span> <span class="n">KaggleApi</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>3. 認証を通す<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<p>このままだと認証通っていないので、エラーになります。</p>
+<p>そこで<code class="docutils literal notranslate"><span class="pre">api.authenticate()</span></code>を実行します。ローカルにある <code class="docutils literal notranslate"><span class="pre">~/.kaggle/kaggle.json</span></code>を読み込みに行って、なんやかんやしてくれます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 認証を通す</span>
+<span class="n">api</span><span class="o">.</span><span class="n">authenticate</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>試してみる<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>コンペのリストを表示させてみます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># $ kaggle competitions list</span>
+<span class="n">api</span><span class="o">.</span><span class="n">competitions_list_cli</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>ref                                            deadline             category            reward  teamCount  userHasEntered
+---------------------------------------------  -------------------  ---------------  ---------  ---------  --------------
+digit-recognizer                               2030-01-01 00:00:00  Getting Started  Knowledge       2724           False
+titanic                                        2030-01-01 00:00:00  Getting Started  Knowledge      10359            True
+house-prices-advanced-regression-techniques    2030-01-01 00:00:00  Getting Started  Knowledge       4300           False
+imagenet-object-localization-challenge         2029-12-31 07:00:00  Research         Knowledge         30           False
+competitive-data-science-predict-future-sales  2019-12-31 23:59:00  Playground           Kudos       1823            True
+histopathologic-cancer-detection               2019-03-31 23:59:00  Playground       Knowledge         80           False
+quora-insincere-questions-classification       2019-02-05 23:59:00  Featured           $25,000       1315            True
+pubg-finish-placement-prediction               2019-01-30 23:59:00  Playground            Swag        705           False
+human-protein-atlas-image-classification       2019-01-10 23:59:00  Featured           $37,000       1174           False
+traveling-santa-2018-prime-paths               2019-01-10 23:59:00  Featured           $25,000        547            True
+two-sigma-financial-news                       2019-01-08 23:59:00  Featured          $100,000       1828            True
+PLAsTiCC-2018                                  2018-12-17 23:59:00  Featured           $25,000        737            True
+quickdraw-doodle-recognition                   2018-12-04 23:59:00  Featured           $25,000       1214           False
+ga-customer-revenue-prediction                 2018-11-30 23:59:00  Featured           $45,000        813            True
+dont-call-me-turkey                            2018-11-26 23:59:00  Playground            Swag        223           False
+airbus-ship-detection                          2018-11-14 23:59:00  Featured           $60,000        884           False
+inclusive-images-challenge                     2018-11-12 23:59:00  Research           $25,000        468           False
+rsna-pneumonia-detection-challenge             2018-10-31 23:59:00  Featured           $30,000       1499           False
+tgs-salt-identification-challenge              2018-10-19 23:59:00  Featured          $100,000       3234           False
+new-york-city-taxi-fare-prediction             2018-09-25 23:59:00  Playground       Knowledge       1488           False
+</pre></div>
+</div>
+<p>ソースをざっと確認しましたが、<code class="docutils literal notranslate"><span class="pre">kaggle</span></code>コマンドで実行できる関数は<code class="docutils literal notranslate"><span class="pre">*_cli()</span></code>という名前になっています。</p>
+<p>これを使っても何の意味もないので、<code class="docutils literal notranslate"><span class="pre">kaggle</span></code>コマンドで直接実行できないものをいくつか使ってみました。</p>
+<div class="section" id="id7">
+<h3>各コンペの情報を取得<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">competitions_list</span></code>はコンペの情報を取ってこれます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">competitions_list</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">competitions_list</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="s1">&#39;featured&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">competition</span> <span class="ow">in</span> <span class="n">competitions_list</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">competition</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vsb</span><span class="o">-</span><span class="n">power</span><span class="o">-</span><span class="n">line</span><span class="o">-</span><span class="n">fault</span><span class="o">-</span><span class="n">detection</span>
+<span class="n">humpback</span><span class="o">-</span><span class="n">whale</span><span class="o">-</span><span class="n">identification</span>
+<span class="n">elo</span><span class="o">-</span><span class="n">merchant</span><span class="o">-</span><span class="n">category</span><span class="o">-</span><span class="n">recommendation</span>
+<span class="n">ga</span><span class="o">-</span><span class="n">customer</span><span class="o">-</span><span class="n">revenue</span><span class="o">-</span><span class="n">prediction</span>
+<span class="n">quora</span><span class="o">-</span><span class="n">insincere</span><span class="o">-</span><span class="n">questions</span><span class="o">-</span><span class="n">classification</span>
+<span class="n">human</span><span class="o">-</span><span class="n">protein</span><span class="o">-</span><span class="n">atlas</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">classification</span>
+<span class="n">traveling</span><span class="o">-</span><span class="n">santa</span><span class="o">-</span><span class="mi">2018</span><span class="o">-</span><span class="n">prime</span><span class="o">-</span><span class="n">paths</span>
+<span class="n">two</span><span class="o">-</span><span class="n">sigma</span><span class="o">-</span><span class="n">financial</span><span class="o">-</span><span class="n">news</span>
+<span class="n">PLAsTiCC</span><span class="o">-</span><span class="mi">2018</span>
+<span class="n">quickdraw</span><span class="o">-</span><span class="n">doodle</span><span class="o">-</span><span class="n">recognition</span>
+<span class="n">airbus</span><span class="o">-</span><span class="n">ship</span><span class="o">-</span><span class="n">detection</span>
+<span class="n">rsna</span><span class="o">-</span><span class="n">pneumonia</span><span class="o">-</span><span class="n">detection</span><span class="o">-</span><span class="n">challenge</span>
+<span class="n">tgs</span><span class="o">-</span><span class="n">salt</span><span class="o">-</span><span class="n">identification</span><span class="o">-</span><span class="n">challenge</span>
+<span class="n">google</span><span class="o">-</span><span class="n">ai</span><span class="o">-</span><span class="nb">open</span><span class="o">-</span><span class="n">images</span><span class="o">-</span><span class="nb">object</span><span class="o">-</span><span class="n">detection</span><span class="o">-</span><span class="n">track</span>
+<span class="n">google</span><span class="o">-</span><span class="n">ai</span><span class="o">-</span><span class="nb">open</span><span class="o">-</span><span class="n">images</span><span class="o">-</span><span class="n">visual</span><span class="o">-</span><span class="n">relationship</span><span class="o">-</span><span class="n">track</span>
+<span class="n">home</span><span class="o">-</span><span class="n">credit</span><span class="o">-</span><span class="n">default</span><span class="o">-</span><span class="n">risk</span>
+<span class="n">santander</span><span class="o">-</span><span class="n">value</span><span class="o">-</span><span class="n">prediction</span><span class="o">-</span><span class="n">challenge</span>
+<span class="n">trackml</span><span class="o">-</span><span class="n">particle</span><span class="o">-</span><span class="n">identification</span>
+<span class="n">youtube8m</span><span class="o">-</span><span class="mi">2018</span>
+<span class="n">avito</span><span class="o">-</span><span class="n">demand</span><span class="o">-</span><span class="n">prediction</span>
+</pre></div>
+</div>
+<p>どんな情報が入っているか見てみます。</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">competitions_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">competitions_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># 一部省略
+awardsPoints: True
+category: Featured
+deadline: 2019-03-21 23:59:00
+description: Can you detect faults in above-ground electrical lines?
+enabledDate: 2018-12-20 23:08:48
+evaluationMetric: Matthews correlation coefficient
+id: 10684
+isKernelsSubmissionsOnly: False
+kernelCount: 0
+maxDailySubmissions: 2
+maxTeamSize: 8
+mergerDeadline: 2019-03-14 23:59:00
+newEntrantDeadline: 2019-03-14 23:59:00
+organizationName: Enet Centre, VSB - T.U. of Ostrava
+organizationRef: Enet-Centre-VSB
+ref: vsb-power-line-fault-detection
+reward: $25,000
+submissionsDisabled: False
+tags: [tabular data, signal processing, binary classification]
+teamCount: 60
+title: VSB Power Line Fault Detection
+url: https://www.kaggle.com/c/vsb-power-line-fault-detection
+userHasEntered: False
+userRank: None
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">kaggle</span> <span class="pre">competitions</span> <span class="pre">list</span></code> では取ってこれない情報がけっこうあるのがわかります。</p>
+</div>
+<div class="section" id="kernel">
+<h3>Kernel の情報を取得<a class="headerlink" href="#kernel" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">kernels_list</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">kernels_list</span><span class="p">(</span><span class="n">competition</span><span class="o">=</span><span class="s1">&#39;elo-merchant-category-recommendation&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">kernels_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">kernels_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 一部省略</span>
+<span class="n">author</span><span class="p">:</span> <span class="n">FabienDaniel</span>
+<span class="n">categoryIds</span><span class="p">:</span> <span class="p">[]</span>
+<span class="n">competitionDataSources</span><span class="p">:</span> <span class="p">[]</span>
+<span class="n">datasetDataSources</span><span class="p">:</span> <span class="p">[]</span>
+<span class="n">enableGpu</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">enableInternet</span><span class="p">:</span> <span class="kc">None</span>
+<span class="nb">id</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">isPrivate</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">kernelDataSources</span><span class="p">:</span> <span class="p">[]</span>
+<span class="n">kernelType</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">language</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">lastRunTime</span><span class="p">:</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">13</span> <span class="mi">17</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">06</span>
+<span class="n">ref</span><span class="p">:</span> <span class="n">fabiendaniel</span><span class="o">/</span><span class="n">elo</span><span class="o">-</span><span class="n">world</span>
+<span class="n">slug</span><span class="p">:</span> <span class="kc">None</span>
+<span class="n">title</span><span class="p">:</span> <span class="n">Elo</span> <span class="n">world</span>
+<span class="n">totalVotes</span><span class="p">:</span> <span class="mi">261</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>メリット<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h3>1. <code class="docutils literal notranslate"><span class="pre">kaggle</span></code>コマンドでは見れない情報を取得できる<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<p>上でいくつか試したように、<code class="docutils literal notranslate"><span class="pre">kaggle</span></code>コマンドでは見れない情報がたくさんあります。</p>
+<p>簡単なツールを作りにはちょうどいいです。</p>
+</div>
+<div class="section" id="id10">
+<h3>2. 利用規約に違反しない<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>Kaggle は公式がスクレイピングを禁止しています。</p>
+<blockquote>
+<div><blockquote>
+<div>“Crawls,” “scrapes,” or “spiders” any page, data, or portion of or relating to the Services or Content (through use of manual or automated means);</div></blockquote>
+</div></blockquote>
+<blockquote>
+<div>A violation of any of the foregoing is grounds for termination of your right to use or access the Services. We reserve the right to remove any Content or User Submissions from the Services at any time, for any reason (including if someone alleges you contributed that Content in violation of these Terms), and without notice.</div></blockquote>
+<p><a class="reference external" href="https://www.kaggle.com/terms">Terms of Use</a>（2018/11/25）</p>
+<p>禁止というよりは「やったらいつでも◯すから、気をつけてね」の方が正しいかもしれません。</p>
+<p>スクレイピングで取ってこれる情報量には敵いませんが、ちょっとしたツールを作るにはちょうどいいです。</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>注意点<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<p>Kaggle API は API Limit が公開されていない上に不安定です。</p>
+<p>加えて、Python プログラム上での使用は推奨された使い方ではありません。</p>
+<p>使いすぎて垢バンされないように気をつけてください。</p>
+<p>以下 GitHub に API Limit 関連の issue が上がっています。
+[https://github.com/Kaggle/kaggle-api/issues/132:embed:cite]</p>
+</div>
+<div class="section" id="id12">
+<h2>おわりに<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<p>だれかが便利なものを作ってくれると期待しています。</p>
+</div>
+<div class="section" id="id13">
+<h2>参考資料<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Kaggle/kaggle-api">Kaggle API</a></li>
+<li><a class="reference external" href="https://www.kaggle.com/terms">Kaggle 利用規約</a></li>
+</ul>
+</div>
+<div class="section" id="hints">
+<h2>Hints<a class="headerlink" href="#hints" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://doarakko.hatenablog.com/entry/kaggle_api_in_python">Hatena Blog</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
