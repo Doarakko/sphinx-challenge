@@ -22,3 +22,12 @@ $ git branch -m <src name> <dst name>
 ```
 $ git branch --delete <branch name>
 ```
+
+- キャッシュ削除
+    - `.gitignore` が適用されない場合に実行
+```
+$ git rm -r --cached
+```
+
+## Reference
+- [.gitignoreに記載したのに反映されない件](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
