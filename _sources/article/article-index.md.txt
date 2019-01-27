@@ -22,3 +22,4 @@
 
 ## etc
 - [ChatWork に画像をアップロード in Python](/article/etc/chatwork-post-image.md)
+- [GitHub Pages で Web ページを公開する際のブランチ名](/article/etc/attention-github-pages-branch-name.md)
