@@ -1,0 +1,336 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>【プレイベント】パ・リーグ×パーソル ベースボールデータハッカソン &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">【プレイベント】パ・リーグ×パーソル　ベースボールデータハッカソン</a><ul>
+<li><a class="reference internal" href="#twitter-dataship">twitter: #パ・リーグ #dataship</a></li>
+<li><a class="reference internal" href="#id2">ハッカソン</a></li>
+<li><a class="reference internal" href="#id3">評価指標</a></li>
+<li><a class="reference internal" href="#id4">何を目的変数にするのか?</a></li>
+<li><a class="reference internal" href="#etc">etc</a></li>
+<li><a class="reference internal" href="#reserch">Reserch</a></li>
+<li><a class="reference internal" href="#good">Good</a></li>
+<li><a class="reference internal" href="#qa">QA</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>【プレイベント】パ・リーグ×パーソル　ベースボールデータハッカソン</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/event/pre-event-baseball-data-hackathon.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
+<h1><a class="reference external" href="https://techplay.jp/event/688365">【プレイベント】パ・リーグ×パーソル　ベースボールデータハッカソン</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="twitter-dataship">
+<h2>twitter: #パ・リーグ #dataship<a class="headerlink" href="#twitter-dataship" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="id2">
+<h2>ハッカソン<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>データはアウトカウントごと<ul>
+<li>点を取ったあとのイニングで抑えているかどうか</li>
+</ul>
+</li>
+<li>ファンクラブのマーケデータ</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>評価指標<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>wOBA<ul>
+<li>打者</li>
+<li>係数はリーグ（NPB・MLB）ごとに変更</li>
+<li>ｗOBAの係数は、各イベント（単打・本塁打など）が発生する前後の得点期待値から算出されています（数年分の平均）</li>
+<li>ｗOBAをカテゴリ別（左右別）などで出すことはあります</li>
+</ul>
+</li>
+<li>whip<ul>
+<li>試合結果にあまり影響はない？</li>
+</ul>
+</li>
+<li>FIP　  - 投手　  - 打者から独立</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>何を目的変数にするのか?<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>得点に基づく分析</li>
+<li>ピタゴラス勝率</li>
+<li>各状況からイニングが終わるまでに入った得点の平均</li>
+<li>環境中立的な評価<ul>
+<li>（例）会表のシングルヒット = 9回裏のサヨナラシングルヒット</li>
+</ul>
+</li>
+<li>環境依存的な評価<ul>
+<li>（例）会表のシングルヒット &lt; 9回裏のサヨナラシングルヒット</li>
+<li>あまり使わない(市川）<ul>
+<li>データの扱いが難しいだけでは(me)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ファンの増加<ul>
+<li>to C: チケットの売り上げ, 視聴率</li>
+<li>to B: スポンサー, 放映権</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="etc">
+<h2>etc<a class="headerlink" href="#etc" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>単打よりも失策出塁の方が評価が高いのは、単打は進塁1つのみですが、失策出塁は進塁が2以上発生するケースがあるためです。</li>
+</ul>
+</div>
+<div class="section" id="reserch">
+<h2>Reserch<a class="headerlink" href="#reserch" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>wOBA</li>
+<li>FIP</li>
+<li><a class="reference external" href="https://ja.wikipedia.org/wiki/%E3%83%9B%E3%83%83%E3%83%88%E3%83%8F%E3%83%B3%E3%83%89%E3%81%AE%E8%AA%A4%E8%AC%AC">ホットハンドイリュージョン</a></li>
+</ul>
+</div>
+<div class="section" id="good">
+<h2>Good<a class="headerlink" href="#good" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.sli.do/">slido</a></li>
+</ul>
+</div>
+<div class="section" id="qa">
+<h2>QA<a class="headerlink" href="#qa" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>年俸交渉の時にデータは詳細に出されるのか？<ul>
+<li>出される（川井）</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>https://1point02.jp/op/gnav/column/bs/column.aspx?cid=53003</li>
+<li>https://1point02.jp/op/gnav/score/score.aspx</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
