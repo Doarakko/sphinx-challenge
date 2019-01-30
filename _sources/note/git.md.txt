@@ -29,5 +29,17 @@ $ git branch --delete <branch name>
 $ git rm -r --cached .
 ```
 
+- ログの確認
+    - 終了する場合は `q` を押す
+```
+$ git log
+```
+
+- 直前のコミットの取り消し
+```
+```
+$ git reset --hard HEAD^
+
 ## Reference
 - [.gitignoreに記載したのに反映されない件](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
+- [[Git]コミットの取り消し、打ち消し、上書き](https://qiita.com/shuntaro_tamura/items/06281261d893acf049ed)

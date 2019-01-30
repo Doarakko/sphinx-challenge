@@ -1,4 +1,4 @@
-# Heroku で google-api-python-client を使用する際の注意点
+# 【Heroku】google-api-python-client を使用する際の注意点
 ## 概要
 Heroku で `google-api-python-client` ライブラリを Python で使用した際につまづいたことをまとめました。
 
