@@ -15,7 +15,7 @@
 ## Kaggle
 - [「Kaggle API」を Python で実行してみた](/article/kaggle/kaggle-api-in-python.md)
 - [【Kaggle】Python + Heroku で新規投稿された Kernel を Slack に通知](/article/kaggle/kaggle-kernel-notification.md)
-- [Kaggle の Google Calender を作りました](/article/kaggle/kaggle-competitions-calender.md)
+- [Kaggle の Google Calendar を作りました](/article/kaggle/kaggle-competitions-calendar.md)
 ## Scraping
 - [Connpass のイベント情報を取得する in Python](/article/scraping/get-connpass-event-info.md)
 - [Youtube のコメントを取得する in Python](/article/scraping/get-youtube-comment.md)

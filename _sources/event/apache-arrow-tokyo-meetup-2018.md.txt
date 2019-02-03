@@ -1,8 +1,4 @@
 # Apache Arrow東京ミートアップ2018
-## Reference
-- [Apache Arrow東京ミートアップ2018](https://speee.connpass.com/event/103514/)
-- [Apache Arrowの最新情報（2018年9月版）](https://www.clear-code.com/blog/2018/9/5.html)
-
 ## Apache SparkとApache Arrow
 ### Reasearch
 - PySpark
@@ -39,13 +35,15 @@
 ### Research
 - dask
 
-
-
 ## TensorとApache Arrow
 ###
 - システム間でのテンソルの交換
     - apache arrow
 - テンソルの操作
-- 
+
 ### Research
 - xnd
+
+## Reference
+- [Apache Arrow東京ミートアップ2018](https://speee.connpass.com/event/103514/)
+- [Apache Arrowの最新情報（2018年9月版）](https://www.clear-code.com/blog/2018/9/5.html)

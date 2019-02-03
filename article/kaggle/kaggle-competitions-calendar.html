@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Kaggle の Google Calender を作りました &mdash; Doarakko WorkSpace  documentation</title>
+  <title>Kaggle の Google Calendar を作りました &mdash; Doarakko WorkSpace  documentation</title>
   
 
   
@@ -78,7 +78,7 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Kaggle の Google Calender を作りました</a><ul>
+<li><a class="reference internal" href="#">Kaggle の Google Calendar を作りました</a><ul>
 <li><a class="reference internal" href="#id1">はじめに</a></li>
 <li><a class="reference internal" href="#id2">概要</a></li>
 <li><a class="reference internal" href="#id3">実行環境</a></li>
@@ -138,13 +138,13 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>Kaggle の Google Calender を作りました</li>
+      <li>Kaggle の Google Calendar を作りました</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../../_sources/article/kaggle/kaggle-competitions-calender.md.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/article/kaggle/kaggle-competitions-calendar.md.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -181,18 +181,18 @@
     text-align: unset;
 }
 </style>
-<div class="section" id="kaggle-google-calender">
-<h1>Kaggle の Google Calender を作りました<a class="headerlink" href="#kaggle-google-calender" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="kaggle-google-calendar">
+<h1>Kaggle の Google Calendar を作りました<a class="headerlink" href="#kaggle-google-calendar" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
 <h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>「<a class="reference external" href="https://qiita.com/advent-calendar/2018/kaggle">Kaggle Advent Calender 2018</a>」25 日目の記事です。</p>
+<p>「<a class="reference external" href="https://qiita.com/advent-calendar/2018/kaggle">Kaggle Advent Calendar 2018</a>」25 日目の記事です。</p>
 </div>
 <div class="section" id="id2">
 <h2>概要<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>Kaggle API をうまく使ってコンペの Google カレンダーを作ります。</p>
 <p>Kaggle のカレンダーは、過去に<a class="reference external" href="https://www.kaggle.com/general/2756">こちら</a>の公式フォラームに投稿されていましたが、現在は機能していません。</p>
 <p>以下はプログラムの説明になります。
-カレンダーだけ見たい方は<a class="reference external" href="https://doarakko.github.io/products/kaggle-competitions-calender.html">こちら</a>からどうぞ。</p>
+カレンダーだけ見たい方は<a class="reference external" href="https://doarakko.github.io/products/kaggle-competitions-calendar.html">こちら</a>からどうぞ。</p>
 </div>
 <div class="section" id="id3">
 <h2>実行環境<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
@@ -209,7 +209,7 @@
 <li><code class="docutils literal notranslate"><span class="pre">kaggle</span></code> コマンドが実行できるような状態にしておいてください</li>
 </ul>
 </li>
-<li>Google Calender API<ul>
+<li>Google Calendar API<ul>
 <li>v3</li>
 <li>説明は省きます</li>
 </ul>
@@ -237,7 +237,7 @@
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_event_name_list</span><span class="p">():</span>
     <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;Z&#39;</span>
     <span class="n">events_result</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">list</span><span class="p">(</span>
-        <span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDER_ID</span><span class="p">,</span> <span class="n">timeMin</span><span class="o">=</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+        <span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDAR_ID</span><span class="p">,</span> <span class="n">timeMin</span><span class="o">=</span><span class="n">now</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
     <span class="n">events</span> <span class="o">=</span> <span class="n">events_result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="p">[])</span>
 
     <span class="n">events_name</span> <span class="o">=</span> <span class="p">[]</span>
@@ -292,7 +292,7 @@
                 <span class="p">},</span>
                 <span class="s1">&#39;visibility&#39;</span><span class="p">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
             <span class="p">}</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDER_ID</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDAR_ID</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;[Create] {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">competition_name</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -322,7 +322,7 @@
     <span class="p">},</span>
     <span class="s1">&#39;visibility&#39;</span><span class="p">:</span> <span class="s1">&#39;public&#39;</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="n">event</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDER_ID</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
+<span class="n">event</span> <span class="o">=</span> <span class="n">service</span><span class="o">.</span><span class="n">events</span><span class="p">()</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">calendarId</span><span class="o">=</span><span class="n">CALENDAR_ID</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">body</span><span class="p">)</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -339,8 +339,8 @@
 <div class="section" id="id8">
 <h2>参考資料<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference external" href="https://doarakko.github.io/products/kaggle-competitions-calender.html">作ったカレンダー</a></li>
-<li><a class="reference external" href="https://github.com/Doarakko/kaggle-competitions-calender">作ったプログラム</a></li>
+<li><a class="reference external" href="https://doarakko.github.io/products/kaggle-competitions-calendar.html">作ったカレンダー</a></li>
+<li><a class="reference external" href="https://github.com/Doarakko/kaggle-competitions-calendar">作ったプログラム</a></li>
 <li><a class="reference external" href="https://doarakko.hatenablog.com/entry/kaggle_api_in_python">「Kaggle API」を Python で実行してみた</a></li>
 <li><a class="reference external" href="https://github.com/Kaggle/kaggle-api">Kaggle API</a></li>
 </ul>

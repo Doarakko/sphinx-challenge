@@ -1,6 +1,6 @@
-# Kaggle の Google Calender を作りました
+# Kaggle の Google Calendar を作りました
 ## はじめに
-「[Kaggle Advent Calender 2018](https://qiita.com/advent-calendar/2018/kaggle)」25 日目の記事です。
+「[Kaggle Advent Calendar 2018](https://qiita.com/advent-calendar/2018/kaggle)」25 日目の記事です。
  
 
 ## 概要
@@ -9,7 +9,7 @@ Kaggle API をうまく使ってコンペの Google カレンダーを作りま�
 Kaggle のカレンダーは、過去に[こちら](https://www.kaggle.com/general/2756)の公式フォラームに投稿されていましたが、現在は機能していません。
 
 以下はプログラムの説明になります。
-カレンダーだけ見たい方は[こちら](https://doarakko.github.io/products/kaggle-competitions-calender.html)からどうぞ。
+カレンダーだけ見たい方は[こちら](https://doarakko.github.io/products/kaggle-competitions-calendar.html)からどうぞ。
 
 
 ## 実行環境 
@@ -21,7 +21,7 @@ Kaggle のカレンダーは、過去に[こちら](https://www.kaggle.com/gener
     - 説明は省きます
     - `kaggle` コマンドが実行できるような状態にしておいてください
 
-- Google Calender API
+- Google Calendar API
     - v3
     - 説明は省きます
 
@@ -48,7 +48,7 @@ def get_competitions_list(category='featured'):
 def get_event_name_list():
     now = datetime.datetime.utcnow().isoformat() + 'Z'
     events_result = service.events().list(
-        calendarId=CALENDER_ID, timeMin=now).execute()
+        calendarId=CALENDAR_ID, timeMin=now).execute()
     events = events_result.get('items', [])
 
     events_name = []
@@ -102,7 +102,7 @@ def create_events(competitions_list):
                 },
                 'visibility': 'public',
             }
-            event = service.events().insert(calendarId=CALENDER_ID, body=body).execute()
+            event = service.events().insert(calendarId=CALENDAR_ID, body=body).execute()
             print('[Create] {}'.format(competition_name))
 ```
 
@@ -137,7 +137,7 @@ body = {
     },
     'visibility': 'public',
 }
-event = service.events().insert(calendarId=CALENDER_ID, body=body).execute()
+event = service.events().insert(calendarId=CALENDAR_ID, body=body).execute()
 ```
 
 ### 4. Heroku にあげて定期実行
@@ -148,7 +148,7 @@ event = service.events().insert(calendarId=CALENDER_ID, body=body).execute()
 [f:id:Doarakko:20181225075647p:plain]
 
 ## 参考資料
-- [作ったカレンダー](https://doarakko.github.io/products/kaggle-competitions-calender.html)
-- [作ったプログラム](https://github.com/Doarakko/kaggle-competitions-calender)
+- [作ったカレンダー](https://doarakko.github.io/products/kaggle-competitions-calendar.html)
+- [作ったプログラム](https://github.com/Doarakko/kaggle-competitions-calendar)
 - [「Kaggle API」を Python で実行してみた](https://doarakko.hatenablog.com/entry/kaggle_api_in_python)
 - [Kaggle API](https://github.com/Kaggle/kaggle-api)

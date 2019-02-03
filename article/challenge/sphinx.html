@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ドキュメント作成によく使われているカッコいいテーマを使って、Github Pages を作ってみた &mdash; Doarakko WorkSpace  documentation</title>
+  <title>ドキュメント作成によく使われているカッコいいテーマを使って Github Pages を作ってみた &mdash; Doarakko WorkSpace  documentation</title>
   
 
   
@@ -78,11 +78,27 @@
             
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">ドキュメント作成によく使われているカッコいいテーマを使って、Github Pages を作ってみた</a><ul>
-<li><a class="reference internal" href="#id1">ブランチ構成</a><ul>
+<li><a class="reference internal" href="#">ドキュメント作成によく使われているカッコいいテーマを使って Github Pages を作ってみた</a><ul>
+<li><a class="reference internal" href="#id1">はじめに</a></li>
+<li><a class="reference internal" href="#id2">ブランチ構成</a></li>
+<li><a class="reference internal" href="#id3">必要なもの</a></li>
+<li><a class="reference internal" href="#id4">手順</a><ul>
 <li><a class="reference internal" href="#css">CSS 適用</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#plus-ultra">Plus Ultra</a></li>
+<li><a class="reference internal" href="#id5">感想</a><ul>
+<li><a class="reference internal" href="#good">Good</a></li>
+<li><a class="reference internal" href="#bad">Bad</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id6">課題</a><ul>
+<li><a class="reference internal" href="#conf-py-html-theme-options"><code class="docutils literal notranslate"><span class="pre">conf.py</span></code> の <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> が効かない</a></li>
+<li><a class="reference internal" href="#makefile"><code class="docutils literal notranslate"><span class="pre">Makefile</span></code> 修正</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">おわりに</a></li>
+<li><a class="reference internal" href="#id8">参考資料</a></li>
 </ul>
 </li>
 </ul>
@@ -130,7 +146,7 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>ドキュメント作成によく使われているカッコいいテーマを使って、Github Pages を作ってみた</li>
+      <li>ドキュメント作成によく使われているカッコいいテーマを使って Github Pages を作ってみた</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -174,9 +190,13 @@
 }
 </style>
 <div class="section" id="github-pages">
-<h1>ドキュメント作成によく使われているカッコいいテーマを使って、Github Pages を作ってみた<a class="headerlink" href="#github-pages" title="Permalink to this headline">¶</a></h1>
+<h1>ドキュメント作成によく使われているカッコいいテーマを使って Github Pages を作ってみた<a class="headerlink" href="#github-pages" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>ブランチ構成<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>はじめに<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>LightGBM や Oputuna など</p>
+</div>
+<div class="section" id="id2">
+<h2>ブランチ構成<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>master: build されたコンテンツを管理</li>
 <li>source: <code class="docutils literal notranslate"><span class="pre">source</span></code> 下のファイルを管理<ul>
@@ -184,16 +204,111 @@
 </ul>
 </li>
 </ul>
+<p>source 下を GitHub で管理しない場合は特に気にする必要はないです</p>
+</div>
+<div class="section" id="id3">
+<h2>必要なもの<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>GitHub アカウント</li>
+<li>git</li>
+<li>Python 3</li>
+<li>pip</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>手順<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 <div class="section" id="css">
 <h3>CSS 適用<a class="headerlink" href="#css" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">build/html</span></code> 下に <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code>（中身は空）を作成</li>
-<li>GitHub Pages では <a class="reference external" href="https://jekyllrb.com/">jekyll</a> が使用されているため <code class="docutils literal notranslate"><span class="pre">_&lt;hoge&gt;</span></code> が無視されてしまう<ul>
+<li><code class="docutils literal notranslate"><span class="pre">build/html</span></code> 下に <code class="docutils literal notranslate"><span class="pre">.nojekyll</span></code>（中身は空）を作成<ul>
 <li>jekyll が使用されないようにする</li>
+</ul>
+</li>
+<li>GitHub Pages では <a class="reference external" href="https://jekyllrb.com/">jekyll</a> が使用されているため <code class="docutils literal notranslate"><span class="pre">_&lt;hoge&gt;</span></code> が無視されてしまう</li>
+</ul>
+</div>
+</div>
+<div class="section" id="plus-ultra">
+<h2>Plus Ultra<a class="headerlink" href="#plus-ultra" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>僕のフォルダ構成</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>source
+├── _static
+│   ├── css
+│   └── img
+├── _templates
+├── article
+│   ├── challenge
+│   ├── coursera
+│   ├── index.md
+│   ├── kaggle
+│   └── scraping
+├── conf.py
+├── event
+│   ├── apache-arrow-tokyo-meetup-2018.md
+│   ├── index.md
+│   ├── julia-tokyo-8.md
+│   └── pre-event-baseball-data-hackathon.md
+├── html
+│   └── products
+├── index.md
+└── note
+    ├── command.md
+    ├── git.md
+    ├── pandas.md
+    └── sphinx.md
+</pre></div>
+</div>
+<ul class="simple">
+<li>HTML ファイルの配置方法</li>
+<li>既存 CSS 編集</li>
+<li>Jupyter Notebook 対応</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h2>感想<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>もろもろまとめての感想です.</p>
+<div class="section" id="good">
+<h3>Good<a class="headerlink" href="#good" title="Permalink to this headline">¶</a></h3>
+<p>何かイケてることやってる感がでる</p>
+<p>あとは、記事にはしないくらいのメモ書きを管理するのにちょうどいいです.</p>
+<p>イベントに参加したり, すでに記事が何個も作られているようなコマンドの使い方などのメモ書きとかを置いてます.</p>
+<p><code class="docutils literal notranslate"><span class="pre">note</span></code> や <code class="docutils literal notranslate"><span class="pre">event</span></code> のところです.</p>
+</div>
+<div class="section" id="bad">
+<h3>Bad<a class="headerlink" href="#bad" title="Permalink to this headline">¶</a></h3>
+<p>特に便利というわけではない.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>課題<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="conf-py-html-theme-options">
+<h3><code class="docutils literal notranslate"><span class="pre">conf.py</span></code> の <code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code> が効かない<a class="headerlink" href="#conf-py-html-theme-options" title="Permalink to this headline">¶</a></h3>
+<p>調査中です、助けてください.</p>
+</div>
+<div class="section" id="makefile">
+<h3><code class="docutils literal notranslate"><span class="pre">Makefile</span></code> 修正<a class="headerlink" href="#makefile" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span> <span class="pre">html</span></code> 実行時に, <code class="docutils literal notranslate"><span class="pre">master</span></code> ブランチの <code class="docutils literal notranslate"><span class="pre">.git</span></code> や <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code> が削除されないようにする<ul>
+<li><code class="docutils literal notranslate"><span class="pre">_static</span></code> 下の CSS ファイル等を編集した場合は <code class="docutils literal notranslate"><span class="pre">make</span></code></li>
 </ul>
 </li>
 </ul>
 </div>
+</div>
+<div class="section" id="id7">
+<h2>おわりに<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>今回は</p>
+</div>
+<div class="section" id="id8">
+<h2>参考資料<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

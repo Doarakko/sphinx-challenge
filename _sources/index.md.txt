@@ -1,12 +1,13 @@
-# Hello World!
-## 趣味
+# Doarakko WorkSpace
+## Home
 - Python
 - C++
 - Heroku
 - Google Cloud Platform
 - Git
+- Slack
 
-## 業務
+## Work
 - Java
 - SVN
 - GlassFish
@@ -19,7 +20,7 @@
 - [Hatena Blog](https://doarakko.hatenablog.com)
 
 ## Products
-- [Kaggle Competitions Calender](products/kaggle-competitions-calender.html)
+- [Kaggle Competitions Calendar](products/kaggle-competitions-calendar.html)
 - [Kaggle Kernel Notification](https://github.com/Doarakko/kaggle-kernel-notification)
 
 ## [Article](/article/index.md)

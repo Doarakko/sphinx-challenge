@@ -37,8 +37,8 @@ $ git log
 
 - 直前のコミットの取り消し
 ```
-```
 $ git reset --hard HEAD^
+```
 
 ## Reference
 - [.gitignoreに記載したのに反映されない件](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
