@@ -7,6 +7,7 @@
 ### 1. Download code
 ```
 $ git clone https://github.com/Doarakko/Doarakko.github.io
+$ cd Doarakko.github.io
 ```
 ### 2. Install Python library
 ```

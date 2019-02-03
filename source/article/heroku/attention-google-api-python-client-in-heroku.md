@@ -33,7 +33,7 @@ JSON ファイルの中身をコピペします。
 
 ## 課題2：環境変数をどう使うか
 
-以下 [Google Calender API のサンプルプログラム](https://developers.google.com/calendar/quickstart/python)の抜粋。
+以下 [Google Calendar API のサンプルプログラム](https://developers.google.com/calendar/quickstart/python)の抜粋。
 
 ```python
 store = file.Storage('token.json')
