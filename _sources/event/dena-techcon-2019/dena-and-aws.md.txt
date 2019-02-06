@@ -3,9 +3,13 @@
     - EC2
     - Aurora
 - オートモーティブ
-    - AWS IOT Core
-    - AWS Lambda
+    - IOT Core
+    - Lambda
 - AI事業・研究開発
     - EC2(P2/P3)
     - SageMaker
     - 24時間フルで GPU を動かせるような環境は整っていない
+## サービス選定の基準
+- システム品質を高く保てるか
+- トータルでのコスト
+- 数ヶ月後にリリースなどでスピードを重要視する場合には, 積極的に Managed Service　を使用

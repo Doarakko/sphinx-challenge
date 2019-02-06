@@ -12,7 +12,7 @@ source 下を GitHub で管理しない場合は特に気にする必要はな�
 
 ## 必要なもの
 - GitHub アカウント
-- git
+- Git
 - Python 3
 - pip
 
@@ -79,9 +79,12 @@ source
 調査中です、助けてください.
 ### `Makefile` 修正
 - `make clean html` 実行時に, `master` ブランチの `.git` や `.gitignore` が削除されないようにする
-    - `_static` 下の CSS ファイル等を編集した場合は `make`
 
 ## おわりに
 今回は
 
 ## 参考資料
+- [Read the Docs: Configuration](https://sphinx-rtd-theme.readthedocs.io/en/latest/configuring.html)
+- [Sphinxを便利にして、みんなに使ってもらいたい](https://qiita.com/pashango2/items/d1b379b699af85b529ce)
+- [Sphinx の sphinx_rtd_theme をカスタマイズする
+](http://kuttsun.blogspot.com/2016/11/sphinx-sphinxrtdtheme.html)
