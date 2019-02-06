@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DeNAの品質を支えるQAの取り組み 〜標準化から実践まで〜 &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">DeNAの品質を支えるQAの取り組み 〜標準化から実践まで〜</a><ul>
+<li><a class="reference internal" href="#id1">課題</a></li>
+<li><a class="reference internal" href="#qa">QA 立ち上げ時にやったこと</a><ul>
+<li><a class="reference internal" href="#id2">開発と QA でやったこと / 決めたこと</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">テスト</a></li>
+<li><a class="reference internal" href="#reserach">Reserach</a></li>
+<li><a class="reference internal" href="#reference">Reference</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>DeNAの品質を支えるQAの取り組み 〜標準化から実践まで〜</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/event/dena-techcon-2019/qa-test.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="denaqa">
+<h1>DeNAの品質を支えるQAの取り組み 〜標準化から実践まで〜<a class="headerlink" href="#denaqa" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>課題<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>テストの進め方が各チームによってバラバラ</li>
+<li>世の中一般のテスト水準に対しての立ち位置がわからない<ul>
+<li>他と比べて低いのか高いのか</li>
+</ul>
+</li>
+<li>テスト技術のばらつきがある<ul>
+<li>テストケースの質が安定しない</li>
+</ul>
+</li>
+<li>テストに関するメトリクスが収集できていない<ul>
+<li>データに基づく議論ができていない</li>
+</ul>
+</li>
+<li>ドキュメントかけない<ul>
+<li>工数・予算的に余裕がない</li>
+</ul>
+</li>
+<li>開発ドキュメントが不確定<ul>
+<li>変更が多い</li>
+</ul>
+</li>
+<li>テスト工数が限られている<ul>
+<li>詳細なテスト項目を設計する時間がない</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="qa">
+<h2>QA 立ち上げ時にやったこと<a class="headerlink" href="#qa" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>2つのビューで検討<ul>
+<li>開発と QA</li>
+<li>QA内部</li>
+</ul>
+</li>
+<li>QA メンバの調達・調整</li>
+<li>テストプロセスの検討</li>
+</ul>
+<div class="section" id="id2">
+<h3>開発と QA でやったこと / 決めたこと<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>エンジニアが開発にフォーカスできるように支援</li>
+<li>開発状況ヒアリング<ul>
+<li>どこまでドキュメントを作れるか</li>
+</ul>
+</li>
+<li>開発プロセスを踏まえたプロセス<ul>
+<li>テスト対象のリリースフロー: プロセスを回す単位を決める</li>
+<li>どの段階でリリースするか</li>
+</ul>
+</li>
+<li>開発と QA のやり取りのインフラ<ul>
+<li>コミュニケーション手段, ドキュメント</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>テスト<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>今までのテスト<ul>
+<li>大中小項目で整理</li>
+<li>詳細なケースを洗い出し</li>
+<li>外部仕様に落とし込むのが大変</li>
+</ul>
+</li>
+<li>テスト仕様書作成者とテスト実施者を同じにする<ul>
+<li>他の人がテストを行う場合はテスト仕様書だけでは不十分</li>
+<li>異なる場合はなにかしらの対策が必要</li>
+</ul>
+</li>
+<li>テスト設計技法<ul>
+<li>ペアテストデザイン</li>
+<li>外部仕様として活用可能</li>
+<li>CFD で書く</li>
+</ul>
+</li>
+<li>内部で批判をするのは厳しい<ul>
+<li>外部のコンテストに参加して批判を受ける</li>
+</ul>
+</li>
+<li>CFD をレビュー<ul>
+<li>大中小項目よりも図のレビューの方が簡単でわかりやすい</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="reserach">
+<h2>Reserach<a class="headerlink" href="#reserach" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>CFD</li>
+<li>テスト設計技法</li>
+<li>ペアテストデザイン</li>
+</ul>
+</div>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://engineer.dena.jp/2018/12/dena-qa-night1-1.html">DeNA QA Night#1開催レポート（第一部）</a></li>
+<li><a class="reference external" href="https://engineer.dena.jp/2018/12/qa-night-1-2.html">QA Night #1 開催レポート（第二部）</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

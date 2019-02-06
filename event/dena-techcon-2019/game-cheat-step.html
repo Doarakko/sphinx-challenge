@@ -1,0 +1,396 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>スマホゲームのチート手法とその対策 &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">スマホゲームのチート手法とその対策</a><ul>
+<li><a class="reference internal" href="#id2">チートされにくいゲーム</a></li>
+<li><a class="reference internal" href="#id3">チートされやすいゲーム</a></li>
+<li><a class="reference internal" href="#id4">3種類のチートの手法と対策</a><ul>
+<li><a class="reference internal" href="#id5">メモリ改ざんによるチート</a><ul>
+<li><a class="reference internal" href="#id6">対策</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id7">ファイル改ざん</a><ul>
+<li><a class="reference internal" href="#id8">対策</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id9">パケット改ざん</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reseach">Reseach</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>スマホゲームのチート手法とその対策</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/event/dena-techcon-2019/game-cheat-step.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="id1">
+<h1>スマホゲームのチート手法とその対策<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id2">
+<h2>チートされにくいゲーム<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>サーバ側<ul>
+<li>データ</li>
+<li>データ操作ロジック</li>
+</ul>
+</li>
+<li>クライアント<ul>
+<li>データ操作依頼</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>チートされやすいゲーム<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>クライアント側<ul>
+<li>データ</li>
+<li>データ操作ロジック</li>
+</ul>
+</li>
+<li>手元にあるとユーザインタラクションに優れたゲームが作れる<ul>
+<li>最近多い</li>
+</ul>
+</li>
+<li>バランス重要<ul>
+<li>守りたい部分（データやロジック）<ul>
+<li>サーバ側にデータとロジックを置く</li>
+</ul>
+</li>
+<li>動作速度が重要なもの</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>3種類のチートの手法と対策<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>メモリ改ざんによるチート<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">95%以上はこれ（らしい）</p>
+</li>
+<li><p class="first">チートツール</p>
+<ul class="simple">
+<li>iggg</li>
+<li>game gardian</li>
+</ul>
+</li>
+<li><p class="first">例: ボタン連打ゲーム</p>
+<ol class="simple">
+<li>スコアを 32 に</li>
+<li>メモリから 32 を探す<ul>
+<li>多数ヒット</li>
+</ul>
+</li>
+<li>スコアを 33 へ<ul>
+<li>スコアを変化させてしぼっていく</li>
+</ul>
+</li>
+<li>メモリから 33 を探す</li>
+</ol>
+<ul class="simple">
+<li>以上を繰り返してスコアを表すメモリを特定</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id6">
+<h4>対策<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>メモリを検索させない<ul>
+<li>データをエンコードして保存</li>
+<li>画面上の数値は狙われやすい</li>
+<li>Root 化検知</li>
+<li>エミュレータ検知<ul>
+<li>PC上ではなくスマホでチートツールを動かす場合あり</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>ファイル改ざん<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>マスタデータ<ul>
+<li>敵のステータス</li>
+<li>武器の攻撃力</li>
+<li>バトルの一時的な途中経過ファイル</li>
+</ul>
+</li>
+<li>ファイルを書き換えてアプリを再起動するだけ<ul>
+<li>ほとんどは暗号化されている</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="id8">
+<h4>対策<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>ファイルを作らない</li>
+<li>ファイルを暗号化</li>
+<li>シンボル情報を削除 or 難読化</li>
+<li>文字列リテラルを難読化</li>
+<li>独自の暗号アルゴリズムを使用<ul>
+<li>既存アルゴリズムだとばればれ</li>
+</ul>
+</li>
+<li>コード難読化<ul>
+<li>ループを大量に追加</li>
+<li>ダミーのプログラムを追加</li>
+</ul>
+</li>
+<li>シンボル情報<ul>
+<li>関数名など</li>
+</ul>
+</li>
+<li>文字列リテラル<ul>
+<li>“, ’ で囲まれたもの</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id9">
+<h3>パケット改ざん<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li>プログラムから暗号アルゴリズムと鍵を取得</li>
+<li>パケット到着</li>
+<li>1 で取得したアルゴリズムでパケット複号化</li>
+<li>パケット書き換え</li>
+<li>1 で取得したアルゴリズムで 4 を暗号化</li>
+</ol>
+</div>
+</div>
+<div class="section" id="reseach">
+<h2>Reseach<a class="headerlink" href="#reseach" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>AES</li>
+<li>PacketProxy<ul>
+<li>オープンソース化予定</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

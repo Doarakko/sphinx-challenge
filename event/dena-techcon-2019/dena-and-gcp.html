@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DeNA と Google Cloud Platform &mdash; Doarakko WorkSpace  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static//css/style.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Doarakko WorkSpace
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">DeNA と Google Cloud Platform</a><ul>
+<li><a class="reference internal" href="#id1">アプリケーション基盤の選択肢</a></li>
+<li><a class="reference internal" href="#gcp">GCP 採用の経緯</a><ul>
+<li><a class="reference internal" href="#id2">どうやって社内を説得したか</a></li>
+<li><a class="reference internal" href="#managed-service">Managed Service を使うメリット</a><ul>
+<li><a class="reference internal" href="#id3">デメリット</a></li>
+<li><a class="reference internal" href="#id4">対策</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">今後の取り組み</a></li>
+<li><a class="reference internal" href="#research">Research</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Doarakko WorkSpace</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>DeNA と Google Cloud Platform</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/event/dena-techcon-2019/dena-and-gcp.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="dena-google-cloud-platform">
+<h1>DeNA と Google Cloud Platform<a class="headerlink" href="#dena-google-cloud-platform" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>2013年8月に初めて GCP を使用<ul>
+<li>mobage</li>
+<li>GAE にのせるだけ<ul>
+<li>Datastore 等は使っていない</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>2014年からフル活用</li>
+</ul>
+<div class="section" id="id1">
+<h2>アプリケーション基盤の選択肢<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>サーバレス基盤<ul>
+<li>PaaS</li>
+</ul>
+</li>
+<li>オープンプラットフォーム<ul>
+<li>コンテナ</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="gcp">
+<h2>GCP 採用の経緯<a class="headerlink" href="#gcp" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>どうやって社内を説得したか<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>コスト, 安定性, メンテナンス性を定量的に説明</li>
+<li>削減できる人的リソースをどこに使えるか</li>
+</ul>
+</div>
+<div class="section" id="managed-service">
+<h3>Managed Service を使うメリット<a class="headerlink" href="#managed-service" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>インフラエンジニアの仕事を Google に</li>
+</ul>
+<div class="section" id="id3">
+<h4>デメリット<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>自分たちで完全にコントロールできない</li>
+<li>全部 Google 任せ</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h4>対策<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Google と仲良く</li>
+<li>Managed Service を完全なブラックボックスと捉えない<ul>
+<li>どのような仕組みか, どういうことが起きているか Google に聞く</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>今後の取り組み<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>中国…</li>
+<li>Google にセキュリティ, コンプライアンス何とかして欲しい<ul>
+<li>ログに個人情報あったら Google 側が ML で検知してマスクするなど</li>
+</ul>
+</li>
+<li>GCP を使うユーザが何も気にする必要ない状態を作れれば中国進出楽になる</li>
+</ul>
+</div>
+<div class="section" id="research">
+<h2>Research<a class="headerlink" href="#research" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>GCP Live</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Doarakko
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../../',
+              VERSION:'',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

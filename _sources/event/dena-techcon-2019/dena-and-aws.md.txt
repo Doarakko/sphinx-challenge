@@ -1,0 +1,11 @@
+# 【対談：DeNA ☓ AWS】クラウドジャーニーのこれまでとこれから
+- ゲーム事業部
+    - EC2
+    - Aurora
+- オートモーティブ
+    - AWS IOT Core
+    - AWS Lambda
+- AI事業・研究開発
+    - EC2(P2/P3)
+    - SageMaker
+    - 24時間フルで GPU を動かせるような環境は整っていない
