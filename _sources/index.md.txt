@@ -12,15 +12,9 @@
 - Google Cloud Platform
 - Git
 - Slack
-### Work
-- Java
-- SVN
-- GlassFish
-- Oracle SQL
-- Redmine
 
 ## Products
-- [Kaggle Competitions Calendar](products/kaggle-competitions-calendar.html)
+- [Kaggle Competitions Calendar](https://kaggle-competitions-calendar.herokuapp.com)
 - [Kaggle Kernel Notification](https://github.com/Doarakko/kaggle-kernel-notification)
 
 ## [Article](/article/index.md)

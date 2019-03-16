@@ -35,3 +35,4 @@
 
 ## Reference
 - [関西電力とDeNAが、石炭火力発電所の燃料運用最適化を行うAIソリューションの共同開発等に関して基本合意](https://www.kepco.co.jp/corporate/pr/2019/0205_1j.html)
+- [会議の「伝わらない！」を可視化で解決。描いて語るグラフィックレコーディング](https://fullswing.dena.com/archives/424)
