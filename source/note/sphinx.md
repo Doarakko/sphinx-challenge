@@ -52,6 +52,7 @@ h1,h2,h3,h4,h5,h6 {
 # customize default css
 html_style = "/css/style.css"
 ```
+
 ### MarkDown
 - `conf.py`
 ```
@@ -64,10 +65,12 @@ source_parsers = {
     '.md': CommonMarkParser,
 }
 ```
+
 ### Jupyter Notebook(動作未確認)
 ```
 $ pip install nbsphinx
 ```
+
 ### HTML 形式で記述
 - `<HTML ファイルが配置されたディレクトリ>` 下のファイル（or フォルダ）が `build/html` 下に配置される
     - `<HTML ファイルが配置されたディレクトリ>` は無視されるので注意
@@ -78,7 +81,7 @@ html_extra_path = ['<HTML ファイルが配置されたディレクトリ>']
 ## Memo
 - `$ make html` を実行すると `build/html` 下に build される
 - CSS を修正して build する際は以下を実行
-    - `build/html` 下の `.git` が削除されるため注意
+    - `build/html` 下の `.git` 等も削除されるため注意
 ```
 $ make clean html
 ```
