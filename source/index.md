@@ -17,8 +17,6 @@
 - [Kaggle Competitions Calendar](https://kaggle-competitions-calendar.herokuapp.com)
 - [Kaggle Kernel Notification](https://github.com/Doarakko/kaggle-kernel-notification)
 
-## [Article](/article/index.md)
-
 ## [Note](/note/index.md)
 
 ## [Event](/event/index.md)
