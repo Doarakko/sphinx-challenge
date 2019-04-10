@@ -1,4 +1,4 @@
-# [sphinx-github-pages](https://doarakko.github.io/sphinx-github-pages)
+# [Sphinx Github Pages](https://doarakko.github.io/sphinx-github-pages)
 ## Requirements
 - Python 3
 - pip
