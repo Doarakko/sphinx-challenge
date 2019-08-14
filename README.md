@@ -1,4 +1,4 @@
-# [Sphinx Github Pages](https://doarakko.github.io/sphinx-github-pages)
+# [Sphinx Challenge](https://doarakko.github.io/sphinx-challenge/)
 ## Requirements
 - Python 3
 - pip
@@ -6,7 +6,7 @@
 ## Usage
 ### 1. Download code
 ```
-$ git clone https://github.com/Doarakko/sphinx-github-pages
+$ git clone https://github.com/Doarakko/sphinx-challenge
 $ cd Doarakko.github.io
 ```
 ### 2. Install Python library
